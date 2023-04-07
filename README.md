@@ -1,9 +1,6 @@
-# CafehuelenBackend
-Backend para café huelen, servirá una api quien se encargará de hacer puente con la base de datos
-
-# Te llevoAPP API<br>
+# Cafehuelen API
 API desarrollada con Django, Django REST framework y PostgreSQL, desplegada en [render.com](www.render.com) para servir preparaciones, ingredientes_preparaciones, ingredientes y categorias para [cafehuelen.cl](https://cafehuelen.cl) quién crea y administra preparaciones y manerjo de inventario mediante este servicio. 
-## Para su futuro consumo se encontrará disponible en:<br> https://cafehuelen.cl/ <br><br>
+## Para su futuro consumo se encontrará disponible en:<br> https://cafehuelen.cl/ <br>
 
 # Características
 Crear, leer (incluye detalle), actualizar y eliminar:
@@ -24,4 +21,4 @@ Crear, leer (incluye detalle), actualizar y eliminar:
 Incluidos en requirements.txt para su fácil instalación.
 
 # Imágenes
-![Screenshot](https://raw.githubusercontent.com/keaguirre/djangoBackend/master/Screenshots/web.png)
+![Screenshot](https://github.com/keaguirre/CafehuelenBackend/blob/main/Documentos/Captura%20desde%202023-04-06%2020-25-32.png?raw=true)
