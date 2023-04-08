@@ -1,10 +1,13 @@
 from django.urls import path, include
-from .views import cupon_list, cupon_detail, compra_list, compra_detail, item_compra_list, item_compra_detail
-urlpatterns = [   #corregir al bloque correspondiente
-    path('cupon/', cupon_list),
-    path('cupon/<str:nombre_cup>', cupon_detail),
-    path('compra/', compra_list),
-    path('compra/<int:id_compra>',compra_detail),
-    path('item_compra/', item_compra_list),
-    path('item_compra/<int:id_prep>', item_compra_detail),
+# bloque productos = Local, Totem, Supervisores_local, Proveedor
+from .views import local_list, local_detail, totem_list, totem_detail, superv_local_list, superv_local_detail, proveedor_list, proveedor_detail
+urlpatterns = [
+    path('local/', local_list),
+    path('local/<int:id_local>', local_detail),
+    path('totem/', totem_list),
+    path('totem/<int:num_totem>',totem_detail),
+    path('superv_local/', superv_local_list),
+    path('superv_local/<str:usuario>', superv_local_detail),
+    path('proveedor/', proveedor_list),
+    path('proveedor/<int:id_proveedor>', proveedor_detail),
 ]

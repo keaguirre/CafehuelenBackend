@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from productos.models import Preparacion
+from local.models import Totem
 
 #comando salvador: manage.py migrate --run-syncdb
 # Modelos de bloque Compras
@@ -37,7 +38,7 @@ class Compra(models.Model):
     cod_comercio_compra = models.CharField(max_length=15,null=True, blank=False, default='0', verbose_name='Cod comercio')
     respuesta_tb_compra = models.CharField(max_length=15,null=True, blank=False, default='0', verbose_name='Cod comercio')
     respuesta_mp_compra = models.CharField(max_length=15,null=True, blank=False, default='0', verbose_name='Cod comercio')
-    totem_compra = models.IntegerField(verbose_name='Codigo de totem', default=999)
+    totem_compra = models.ForeignKey(Totem, on_delete=models.PROTECT, default='null', related_name='id_totem_compra')
 
     class Meta:
         verbose_name='Compra'
