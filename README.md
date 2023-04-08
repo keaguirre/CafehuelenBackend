@@ -21,4 +21,4 @@ Crear, leer (incluye detalle), actualizar y eliminar:
 Incluidos en requirements.txt para su fácil instalación.
 
 # Imágenes
-![Screenshot](https://github.com/keaguirre/CafehuelenBackend/blob/main/Documentos/web_preview.png?raw=true)
+![Screenshot](https://github.com/keaguirre/CafehuelenBackend/blob/main/Documentos/web.png?raw=true)
