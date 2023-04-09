@@ -13,3 +13,7 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 07/04/23 App API Local
 - Creacion de app de local, la cual involucra las tablas: Local, Totem, Supervisores_local, Proveedor
 - Cambio de imagen de preview del sitio
+
+# 09/04/23 Cambios de ruta
+- Se cambia de lugar el home de la api desde home a /api
+- Se cambia el home por el home under construction
