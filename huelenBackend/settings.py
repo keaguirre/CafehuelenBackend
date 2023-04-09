@@ -72,6 +72,8 @@ TEMPLATES = [
     },
 ]
 
+STATIC_URL = '/static/'
+
 WSGI_APPLICATION = 'huelenBackend.wsgi.application'
 
 
