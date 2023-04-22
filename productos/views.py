@@ -43,7 +43,7 @@ def categoria_detail(request,id_cat):
     
     elif request.method == 'PUT':
         categoria_data = JSONParser().parse(request)
-        categoria_serializer = CategoriaSerializer(data=categoria_data)
+        categoria_serializer = CategoriaSerializer(categoria, data=categoria_data)
         if categoria_serializer.is_valid():
             categoria_serializer.save()
             return Response(categoria_serializer.data,status=status.HTTP_200_OK)
@@ -87,7 +87,7 @@ def ingrediente_detail(request,id_ingre):
     
     elif request.method == 'PUT':
         ingrediente_data = JSONParser().parse(request)
-        ingrediente_serializer = IngredienteSerializer(data=ingrediente_data)
+        ingrediente_serializer = IngredienteSerializer(ingrediente, data=ingrediente_data)
         if ingrediente_serializer.is_valid():
             ingrediente_serializer.save()
             return Response(ingrediente_serializer.data,status=status.HTTP_200_OK)
@@ -131,7 +131,7 @@ def ingrediente_prep_detail(request,id_prep):
     
     elif request.method == 'PUT':
         ingrediente_prep_data = JSONParser().parse(request)
-        ingrediente_prep_serializer = Ingredientes_preparacionSerializer(data=ingrediente_prep_data)
+        ingrediente_prep_serializer = Ingredientes_preparacionSerializer(ingrediente_prep, data=ingrediente_prep_data)
         if ingrediente_prep_serializer.is_valid():
             ingrediente_prep_serializer.save()
             return Response(ingrediente_prep_serializer.data,status=status.HTTP_200_OK)
@@ -175,7 +175,7 @@ def preparacion_detail(request,id_prep):
     
     elif request.method == 'PUT':
         preparacion_data = JSONParser().parse(request)
-        preparacion_serializer = IngredienteSerializer(data=preparacion_data)
+        preparacion_serializer = IngredienteSerializer(preparacion, data=preparacion_data)
         if preparacion_serializer.is_valid():
             preparacion_serializer.save()
             return Response(preparacion_serializer.data,status=status.HTTP_200_OK)

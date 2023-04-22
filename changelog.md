@@ -22,3 +22,4 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Vuelve a ocuparse el id en la tabla de categorias
 - Ajustes menores en settings.py, zona horaria, lenguage
 - Nueva base de datos aplicada
+- Corregido el metodo put
