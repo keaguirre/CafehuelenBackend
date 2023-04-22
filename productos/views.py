@@ -31,9 +31,9 @@ def categoria_list(request):
         return Response({'message:','{} Categorias han sido eliminadas de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
-def categoria_detail(request,nombre_cat):
+def categoria_detail(request,id_cat):
     try:
-        categoria = Categoria.objects.get(nombre_cat=nombre_cat)
+        categoria = Categoria.objects.get(id_cat=id_cat)
     except Categoria.DoesNotExist:
         return Response({'messaje':'La categoria buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 

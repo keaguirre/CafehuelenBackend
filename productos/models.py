@@ -4,8 +4,8 @@ from django.db import models
 # bloque productos = preparacion, ingredientes_preparacion, ingrediente, categoria
 
 class Categoria(models.Model):
-    #id_cat = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Categoria')
-    nombre_cat = models.CharField(primary_key=True, null=False, blank=False, max_length=15, verbose_name='Nombre categoria')
+    id_cat = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Categoria')
+    nombre_cat = models.CharField(null=False, blank=False, max_length=30, verbose_name='Nombre categoria')
 
     class Meta:
         verbose_name='Categoria'
@@ -13,7 +13,7 @@ class Categoria(models.Model):
         ordering=['nombre_cat']
 
     def __str__(self):
-        return self.nombre_cat
+        return f"{self.id_cat} - {self.nombre_cat}"
         
 class Ingrediente(models.Model):
     id_ingre = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Ingrediente')
@@ -29,10 +29,10 @@ class Ingrediente(models.Model):
     class Meta:
         verbose_name='Ingrediente'
         verbose_name_plural='Ingredientes'
-        ordering=['id_ingre']
+        ordering=['marca_ingre']
 
-    def __int__(self):
-        return self.id_ingre
+    def __str__(self):
+        return f"{self.id_ingre} - {self.descripcion_ingre}"
     
 class Ingredientes_preparacion(models.Model):
     id_prep = models.ForeignKey('Preparacion', on_delete=models.CASCADE, default='null', related_name='id_preparacion')
@@ -46,8 +46,8 @@ class Ingredientes_preparacion(models.Model):
         verbose_name_plural='Ingredientes_prep'
         ordering=['id_prep']
 
-    def __int__(self):
-        return self.id_prep
+    def __str__(self):
+        return f"prep:{self.id_prep} - ingre:{self.id_ingre}"
     
 class Preparacion(models.Model):
     id_prep = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Preparacion')
@@ -60,7 +60,7 @@ class Preparacion(models.Model):
     class Meta:
         verbose_name='Preparacion'
         verbose_name_plural='Preparacion'
-        ordering=['id_prep']
+        ordering=['nombre_prep']
 
-    def __int__(self):
-        return self.id_prep
+    def __str__(self):
+        return f"{self.id_prep} - {self.nombre_prep}"

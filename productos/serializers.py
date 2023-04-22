@@ -4,7 +4,7 @@ from .models import Categoria, Ingrediente, Ingredientes_preparacion, Preparacio
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = ('nombre_cat',)
+        fields = ('id_cat', 'nombre_cat',)
         #read_only_fields = ('id_cat')
 
 class IngredienteSerializer(serializers.ModelSerializer):

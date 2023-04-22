@@ -17,3 +17,7 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 09/04/23 Cambios de ruta
 - Se cambia de lugar el home de la api desde home a /api
 - Se cambia el home por el home under construction
+
+# 21/04/23 Actualizacion de categorias
+- Vuelve a ocuparse el id en la tabla de categorias
+- Ajustes menores en settings.py, zona horaria, lenguage
