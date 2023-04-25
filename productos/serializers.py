@@ -15,7 +15,7 @@ class IngredienteSerializer(serializers.ModelSerializer):
 class Ingredientes_preparacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredientes_preparacion
-        fields = ('id_prep', 'id_ingre', 'cantidad_necesaria', 'tipo_unidad', 'cantidad_unidad')
+        fields = ('id_prep', 'id_ingre', 'cantidad_necesaria', 'tipo_unidad')
         #read_only_fields = ('id_prep', 'id_ingre')
 
 class PreparacionSerializer(serializers.ModelSerializer):

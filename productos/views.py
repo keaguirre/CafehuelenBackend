@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, HttpResponse
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
@@ -152,7 +151,7 @@ def preparacion_list(request):
 
     elif request.method == 'POST':
         preparacion_data = JSONParser().parse(request)
-        preparacion_serializer = IngredienteSerializer(data=preparacion_data)
+        preparacion_serializer = PreparacionSerializer(data=preparacion_data)
         if preparacion_serializer.is_valid():
             preparacion_serializer.save()
             return Response(preparacion_serializer.data,status=status.HTTP_201_CREATED)
@@ -170,12 +169,12 @@ def preparacion_detail(request,id_prep):
         return Response({'messaje':'La preparacion buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        preparacion_serializer = IngredienteSerializer(preparacion)
+        preparacion_serializer = PreparacionSerializer(preparacion)
         return Response(preparacion_serializer.data,status=status.HTTP_200_OK)
     
     elif request.method == 'PUT':
         preparacion_data = JSONParser().parse(request)
-        preparacion_serializer = IngredienteSerializer(preparacion, data=preparacion_data)
+        preparacion_serializer = PreparacionSerializer(preparacion, data=preparacion_data)
         if preparacion_serializer.is_valid():
             preparacion_serializer.save()
             return Response(preparacion_serializer.data,status=status.HTTP_200_OK)

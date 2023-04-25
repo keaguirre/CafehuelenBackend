@@ -39,7 +39,6 @@ class Ingredientes_preparacion(models.Model):
     id_ingre = models.ForeignKey('Ingrediente', on_delete=models.CASCADE, default='null', related_name='id_ingrediente')
     cantidad_necesaria = models.IntegerField(verbose_name='Cantidad necesaria', null=False, default=999)
     tipo_unidad = models.CharField(max_length=10,null=False, default='Ingresar tipo unidad', verbose_name='Tipo unidad')
-    cantidad_unidad = models.IntegerField(null=False, default=0, verbose_name='Cantidad unidad')
     
     class Meta:
         verbose_name='Ingredientes_prep'

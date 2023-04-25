@@ -23,3 +23,8 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Ajustes menores en settings.py, zona horaria, lenguage
 - Nueva base de datos aplicada
 - Corregido el metodo put
+
+# 24/04/23 Correcciones en el view
+- Se corrige el view de producto que creaba ingredientes por error en el serializer
+- Quitamos el campo cant unidad desde ingreprep por innecesario
+- Regeneramos la base de datos
