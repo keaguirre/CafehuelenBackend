@@ -107,7 +107,7 @@ def ingrediente_prep_list(request):
 
     elif request.method == 'POST':
         ingrediente_prep_data = JSONParser().parse(request)
-        ingrediente_prep_serializer = IngredienteSerializer(data=ingrediente_prep_data)
+        ingrediente_prep_serializer = Ingredientes_preparacionSerializer(data=ingrediente_prep_data)
         if ingrediente_prep_serializer.is_valid():
             ingrediente_prep_serializer.save()
             return Response(ingrediente_prep_serializer.data,status=status.HTTP_201_CREATED)
