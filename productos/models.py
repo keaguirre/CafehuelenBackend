@@ -35,8 +35,8 @@ class Ingrediente(models.Model):
         return f"{self.id_ingre} - {self.descripcion_ingre}"
     
 class Ingredientes_preparacion(models.Model):
-    id_prep = models.ForeignKey('Preparacion', on_delete=models.CASCADE, default='null', related_name='id_preparacion')
-    id_ingre = models.ForeignKey('Ingrediente', on_delete=models.CASCADE, default='null', related_name='id_ingrediente')
+    id_prep = models.ForeignKey('Preparacion', on_delete=models.SET_DEFAULT, default='null', related_name='id_preparacion')
+    id_ingre = models.ForeignKey('Ingrediente', on_delete=models.SET_DEFAULT, default='null', related_name='id_ingrediente')
     cantidad_necesaria = models.IntegerField(verbose_name='Cantidad necesaria', null=False, default=999)
     tipo_unidad = models.CharField(max_length=10,null=False, default='Ingresar tipo unidad', verbose_name='Tipo unidad')
     
@@ -54,7 +54,7 @@ class Preparacion(models.Model):
     descripcion_prep = models.CharField(max_length=300,null=False, blank=False, default='Ingresar descripcion', verbose_name='Descripcion preparacion')
     imagen_prep = models.CharField(max_length=300, default='Ingresar link imagen', verbose_name='Link imagen preparacion')
     stock_prep = models.IntegerField(null=False, default=0, verbose_name='Stock preparacion')
-    nombre_cat_prep = models.ForeignKey('Categoria', on_delete=models.CASCADE, default='null', related_name='nombre_categoria')
+    id_cat_prep = models.ForeignKey('Categoria', on_delete=models.SET_DEFAULT, default='null', related_name='id_categoria')
     precio_prep = models.IntegerField(null=False, default=0, verbose_name='Precio preparacion')
     class Meta:
         verbose_name='Preparacion'

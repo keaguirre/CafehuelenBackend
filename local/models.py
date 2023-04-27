@@ -22,7 +22,7 @@ class Local(models.Model):
 class Totem(models.Model):
     mac_totem = models.CharField(primary_key=True, max_length=50, default='null', verbose_name='Mac Totem')
     num_totem = models.IntegerField(verbose_name='ID Totem', default=0)
-    local_asignado = models.ForeignKey(Local, on_delete=models.CASCADE, default='null', related_name='id_local_totem')
+    local_asignado = models.ForeignKey(Local, on_delete=models.SET_DEFAULT, default='null', related_name='id_local_totem')
 
     class Meta:
         verbose_name='Totem'
@@ -35,7 +35,7 @@ class Totem(models.Model):
 class Superv_local(models.Model):
     usuario = models.CharField(primary_key=True, max_length=50, default='null', verbose_name='Usuario')
     contrasena = models.CharField(max_length=50, default='null', verbose_name='Usuario')
-    local_asignado = models.ForeignKey(Local,related_name='id_local_superv', on_delete=models.CASCADE)
+    local_asignado = models.ForeignKey(Local,related_name='id_local_superv', on_delete=models.SET_DEFAULT)
 
     class Meta:
         verbose_name='Supervisor_local'
@@ -50,7 +50,7 @@ class Proveedor(models.Model):
     nombre_prove = models.CharField(max_length=50, default='null', verbose_name='Usuario')
     num_prove = models.CharField(max_length=50, default='null', verbose_name='Usuario')
     ingredientes_prove = models.CharField(max_length=50, default='null', verbose_name='Usuario')
-#   id_local_prove = models.ForeignKey(related_name='local_id', on_delete=models.CASCADE)
+#   id_local_prove = models.ForeignKey(related_name='local_id', on_delete=models.SET_DEFAULT)
 
     class Meta:
         verbose_name='Proveedor'

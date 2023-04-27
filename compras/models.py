@@ -15,7 +15,7 @@ class Cupon(models.Model):
     fecha_fin_cup = models.DateField(verbose_name='Fecha de término del cupon', default=timezone.now)
     porc_desc_cup = models.IntegerField(verbose_name='Porcentaje de descuento %', default=0)
     stock_cup = models.IntegerField(verbose_name='Cantidad de cupones disponibles', default=0)
-    id_compra = models.ForeignKey('Compra', on_delete=models.CASCADE, default='null', related_name='id_compra_cupon')
+    id_compra = models.ForeignKey('Compra', on_delete=models.SET_DEFAULT, default='null', related_name='id_compra_cupon')
     
     class Meta:
         verbose_name='Cupon'
@@ -49,8 +49,8 @@ class Compra(models.Model):
         return self.id_compra
 
 class Item_compra(models.Model):
-    id_prep = models.ForeignKey(Preparacion, on_delete=models.CASCADE, default='null', related_name='id_prep_itemcompra')
-    id_compra = models.ForeignKey(Compra, on_delete=models.CASCADE, default='null', related_name='id_compra_itemcompra')
+    id_prep = models.ForeignKey(Preparacion, on_delete=models.SET_DEFAULT, default='null', related_name='id_prep_itemcompra')
+    id_compra = models.ForeignKey(Compra, on_delete=models.SET_DEFAULT, default='null', related_name='id_compra_itemcompra')
     cantidad_item = models.IntegerField(verbose_name='Cantidad del item', default=999)
     precio_unitario_item = models.IntegerField(verbose_name='Precio unitario item', default=999)
     total_item = models.IntegerField(verbose_name='Precio unitario item', default=0)

@@ -28,3 +28,7 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Se corrige el view de producto que creaba ingredientes por error en el serializer
 - Quitamos el campo cant unidad desde ingreprep por innecesario
 - Regeneramos la base de datos
+
+# 27/04/23 Correccion de models
+- Entra id_cat_prep por nombre_cat_prep
+- Se corrigen los models para que on_delete=CASCADE pasa a ser on_delete=SET_DEFAULT en los 3 bloques
