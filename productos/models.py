@@ -53,7 +53,7 @@ class Preparacion(models.Model):
     nombre_prep = models.CharField(max_length=32,null=False, blank=False, default='Ingresar nombre', verbose_name='Nombre preparacion')
     descripcion_prep = models.CharField(max_length=300,null=False, blank=False, default='Ingresar descripcion', verbose_name='Descripcion preparacion')
     imagen_prep = models.CharField(max_length=300, default='Ingresar link imagen', verbose_name='Link imagen preparacion')
-    stock_prep = models.IntegerField(null=False, default=0, verbose_name='Stock preparacion')
+    # stock_prep = models.IntegerField(null=False, default=0, verbose_name='Stock preparacion')
     id_cat_prep = models.ForeignKey('Categoria', on_delete=models.SET_DEFAULT, default='null', related_name='id_categoria')
     precio_prep = models.IntegerField(null=False, default=0, verbose_name='Precio preparacion')
     class Meta:

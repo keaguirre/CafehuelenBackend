@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'huelenBackend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
     'default': dj_database_url.config(
-    default='postgres://cafehuelendb_i8jy_user:hgqBprna9eFpHsLIscWinIccX1Csxo6A@dpg-ch3hbbceoogsn039fjv0-a.oregon-postgres.render.com/cafehuelendb_i8jy',
+    default='postgres://cafehuelendb_2wks_user:OwZJQGlqryQjNpwdCA5jI8321laWWQZv@dpg-ch5edol269v2s5ji7c6g-a.oregon-postgres.render.com/cafehuelendb_2wks',
     conn_max_age=600
     )
 }
