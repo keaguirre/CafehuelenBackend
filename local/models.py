@@ -35,7 +35,7 @@ class Totem(models.Model):
 class Superv_local(models.Model):
     usuario = models.CharField(primary_key=True, max_length=50, default='null', verbose_name='Usuario')
     contrasena = models.CharField(max_length=50, default='null', verbose_name='Usuario')
-    local_asignado = models.ForeignKey(Local,related_name='id_local_superv', on_delete=models.SET_DEFAULT)
+    local_asignado = models.ForeignKey(Local, default='null',related_name='id_local_superv', on_delete=models.SET_DEFAULT)
 
     class Meta:
         verbose_name='Supervisor_local'
