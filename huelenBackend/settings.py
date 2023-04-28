@@ -106,9 +106,9 @@ WSGI_APPLICATION = 'huelenBackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.config(
-    default='postgres://cafehuelendb_2wks_user:OwZJQGlqryQjNpwdCA5jI8321laWWQZv@dpg-ch5edol269v2s5ji7c6g-a.oregon-postgres.render.com/cafehuelendb_2wks',
-    conn_max_age=600
+    'default': dj_database_url.config( 
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600
     )
 }
 
