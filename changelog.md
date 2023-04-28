@@ -32,3 +32,6 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 27/04/23 Correccion de models
 - Entra id_cat_prep por nombre_cat_prep
 - Se corrigen los models para que on_delete=CASCADE pasa a ser on_delete=SET_DEFAULT en los 3 bloques
+
+# 28/04/23 Paso a prod en Render.com
+- Agregado, build.sh, Actualizados settings.py y requirements
