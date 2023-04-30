@@ -35,3 +35,6 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 
 # 28/04/23 Paso a prod en Render.com
 - Agregado, build.sh, Actualizados settings.py y requirements
+
+# 29/04/23 Refactor en models categorias
+- Agregado el metodo para que la tabla categoria detecte las entradas repetidas y deja un nuevo mensaje.

@@ -1,16 +1,26 @@
 from django.db import models
-#comando salvador: manage.py migrate --run-syncdb
+from django.core.exceptions import ValidationError
+#comando salvador:python manage.py migrate --run-syncdb
 # Modelos de bloque productos
 # bloque productos = preparacion, ingredientes_preparacion, ingrediente, categoria
 
 class Categoria(models.Model):
     id_cat = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Categoria')
-    nombre_cat = models.CharField(null=False, blank=False, max_length=30, verbose_name='Nombre categoria')
+    nombre_cat = models.CharField(null=False, blank=False, max_length=30, unique=True, verbose_name='Nombre categoria', 
+                                  error_messages={'unique': 'Ya existe una categoría con este nombre.'})
 
     class Meta:
         verbose_name='Categoria'
         verbose_name_plural='Categorias'
         ordering=['nombre_cat']
+    
+    def clean(self):
+        # Verificar si ya existe una categoría con el mismo nombre, ignorando mayúsculas y minúsculas
+        existing_categories = Categoria.objects.filter(nombre_cat__iexact=self.nombre_cat)
+        if self.pk:
+            existing_categories = existing_categories.exclude(pk=self.pk)
+        if existing_categories.exists():
+            raise ValidationError('Ya existe una categoría con este nombre.')
 
     def __str__(self):
         return f"{self.id_cat} - {self.nombre_cat}"
