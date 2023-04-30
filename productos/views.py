@@ -22,7 +22,9 @@ def categoria_list(request):
         categoria_serializer = CategoriaSerializer(data=categoria_data)
         if categoria_serializer.is_valid():
             categoria_serializer.save()
-            return Response(categoria_serializer.data,status=status.HTTP_201_CREATED)
+            content = 'Categoria '+ categoria_serializer.data['nombre_cat']+ ' Creada'
+            return Response(content, status=status.HTTP_201_CREATED)
+            # return Response({'Categoria creada correctamente'}, status=status.HTTP_201_CREATED)
         return Response(categoria_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
