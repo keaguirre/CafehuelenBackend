@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-sh-*i&7p@5-5t8(ra84jedxjd4$b4wk*6*)o8pp_r+093fw=4u
 
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
@@ -110,7 +110,8 @@ WSGI_APPLICATION = 'huelenBackend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
     'default': dj_database_url.config( 
-        default='sqlite:///db.sqlite3',
+        # default='sqlite:///db.sqlite3',
+        default='postgres://keaguirre:A0FZykra3TrhPBI7LBoQYOyQs0VyUTYG@dpg-ch84fllgk4q7lmvv071g-a.oregon-postgres.render.com/cafehuelendb_dqiu',
         conn_max_age=600
     )
 }
