@@ -1,23 +1,23 @@
-from .models import Categoria, Ingrediente, Ingredientes_preparacion, Preparacion
+from .models import categoria, ingrediente, detalle_preparacion, preparacion
 from rest_framework import viewsets, permissions
-from .serializers import CategoriaSerializer, IngredienteSerializer, Ingredientes_preparacionSerializer, PreparacionSerializer
+from .serializers import categoriaSerializer, ingredienteSerializer, detalle_preparacionSerializer, preparacionSerializer
 
 class CategoriaViewSet(viewsets.ModelViewSet):
-    queryset = Categoria.objects.all()
+    queryset = categoria.objects.all()
     permission_classes = [permissions.AllowAny]
-    serializer_class = CategoriaSerializer
+    serializer_class = categoriaSerializer
 
 class IngredienteViewSet(viewsets.ModelViewSet):
-    queryset = Ingrediente.objects.all()
+    queryset = ingrediente.objects.all()
     permission_classes = [permissions.AllowAny]
-    serializer_class = IngredienteSerializer
+    serializer_class = ingredienteSerializer
 
-class Ingredientes_preparacionViewSet(viewsets.ModelViewSet):
-    queryset = Ingredientes_preparacion.objects.all()
+class Detalle_preparacionViewSet(viewsets.ModelViewSet):
+    queryset = detalle_preparacion.objects.all()
     permission_classes = [permissions.AllowAny]
-    serializer_class = Ingredientes_preparacionSerializer
+    serializer_class = detalle_preparacionSerializer
 
 class PreparacionViewSet(viewsets.ModelViewSet):
-    queryset = Preparacion.objects.all()
+    queryset = preparacion.objects.all()
     permission_classes = [permissions.AllowAny]
-    serializer_class = PreparacionSerializer
+    serializer_class = preparacionSerializer

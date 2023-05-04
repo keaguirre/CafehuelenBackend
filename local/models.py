@@ -1,8 +1,8 @@
 from django.db import models
 
-#comando salvador: manage.py migrate --run-syncdb
+#comando salvador: python manage.py migrate --run-syncdb
 # Modelos de bloque Compras
-# bloque productos = Local, Totem, Supervisores_local, Proveedor
+# bloque productos = Local, Totem, Supervisores_local
 
 
 class Local(models.Model):
@@ -44,18 +44,6 @@ class Superv_local(models.Model):
 
     def __str__(self):
         return self.usuario
-
-class Proveedor(models.Model):
-    id_proveedor = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID proveedor')
-    nombre_prove = models.CharField(max_length=50, default='null', verbose_name='Usuario')
-    num_prove = models.CharField(max_length=50, default='null', verbose_name='Usuario')
-    ingredientes_prove = models.CharField(max_length=50, default='null', verbose_name='Usuario')
-#   id_local_prove = models.ForeignKey(related_name='local_id', on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name='Proveedor'
-        verbose_name_plural='Proveedores'
-        ordering=['nombre_prove']
 
     def __str__(self):
         return self.nombre_prove

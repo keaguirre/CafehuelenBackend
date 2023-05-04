@@ -5,8 +5,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from .models import Categoria, Ingrediente, Ingredientes_preparacion, Preparacion
-from .serializers import CategoriaSerializer, IngredienteSerializer, Ingredientes_preparacionSerializer, PreparacionSerializer
+from .models import categoria, ingrediente, detalle_preparacion, preparacion
+from .serializers import CategoriaSerializer, IngredienteSerializer, Detalle_preparacionSerializer, PreparacionSerializer
 
 # Create your views here.
 #GET, POST PUT DELETE CATEGORIAS-------------------------------------------------------------------------
@@ -14,7 +14,7 @@ from .serializers import CategoriaSerializer, IngredienteSerializer, Ingrediente
 @api_view(['GET','POST','DELETE'])
 def categoria_list(request):
     if request.method == 'GET':
-        categorias = Categoria.objects.all()
+        categorias = categoria.objects.all()
         categoria_serializer = CategoriaSerializer(categorias,many=True)
         return Response(categoria_serializer.data,status=status.HTTP_200_OK)
 
@@ -27,14 +27,14 @@ def categoria_list(request):
         return Response(categoria_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        count = Categoria.objects.all().delete()
+        count = categoria.objects.all().delete()
         return Response({'message:','{} Categorias han sido eliminadas de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
 def categoria_detail(request,nombre_cat):
     try:
-        categoria = Categoria.objects.get(nombre_cat=nombre_cat)
-    except Categoria.DoesNotExist:
+        categoria = categoria.objects.get(id_cat=id_cat)
+    except categoria.DoesNotExist:
         return Response({'messaje':'La categoria buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
@@ -58,7 +58,7 @@ def categoria_detail(request,nombre_cat):
 @api_view(['GET','POST','DELETE'])
 def ingrediente_list(request):
     if request.method == 'GET':
-        ingredientes = Ingrediente.objects.all()
+        ingredientes = ingrediente.objects.all()
         ingrediente_serializer = IngredienteSerializer(ingredientes,many=True)
         return Response(ingrediente_serializer.data,status=status.HTTP_200_OK)
 
@@ -71,14 +71,14 @@ def ingrediente_list(request):
         return Response(ingrediente_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        count = Ingrediente.objects.all().delete()
+        count = ingrediente.objects.all().delete()
         return Response({'message:','{} Ingredientes han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
 def ingrediente_detail(request,id_ingre):
     try:
-        ingrediente = Ingrediente.objects.get(id_ingre=id_ingre)
-    except Ingrediente.DoesNotExist:
+        ingrediente = ingrediente.objects.get(id_ingre=id_ingre)
+    except ingrediente.DoesNotExist:
         return Response({'messaje':'El ingrediente buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
@@ -100,45 +100,45 @@ def ingrediente_detail(request,id_ingre):
 #GET, POST PUT DELETE INGREDIENTES_PREPARACION?-------------------------------------------------------------------------
 
 @api_view(['GET','POST','DELETE'])
-def ingrediente_prep_list(request):
+def detalle_prep_list(request):
     if request.method == 'GET':
-        ingredientes_prep = Ingredientes_preparacion.objects.all()
-        ingrediente_prep_serializer = Ingredientes_preparacionSerializer(ingredientes_prep,many=True)
-        return Response(ingrediente_prep_serializer.data,status=status.HTTP_200_OK)
+        detalle_prep = detalle_preparacion.objects.all()
+        detalle_prep_serializer = Detalle_preparacionSerializer(detalle_prep,many=True)
+        return Response(detalle_prep_serializer.data,status=status.HTTP_200_OK)
 
     elif request.method == 'POST':
-        ingrediente_prep_data = JSONParser().parse(request)
-        ingrediente_prep_serializer = IngredienteSerializer(data=ingrediente_prep_data)
-        if ingrediente_prep_serializer.is_valid():
-            ingrediente_prep_serializer.save()
-            return Response(ingrediente_prep_serializer.data,status=status.HTTP_201_CREATED)
-        return Response(ingrediente_prep_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        detalle_prep_data = JSONParser().parse(request)
+        detalle_prep_serializer = Detalle_preparacionSerializer(data=detalle_prep_data)
+        if detalle_prep_serializer.is_valid():
+            detalle_prep_serializer.save()
+            return Response(detalle_prep_serializer.data,status=status.HTTP_201_CREATED)
+        return Response(detalle_prep_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        count = Ingredientes_preparacion.objects.all().delete()
+        count = detalle_preparacion.objects.all().delete()
         return Response({'message:','{} Ingredientes_preparacion han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
-def ingrediente_prep_detail(request,id_prep):
+def detalle_prep_detail(request,id_prep):
     try:
-        ingrediente_prep = Ingredientes_preparacion.objects.get(id_prep=id_prep)
-    except Ingrediente.DoesNotExist:
+        detalle_prep = detalle_preparacion.objects.get(id_prep=id_prep)
+    except detalle_prep.DoesNotExist:
         return Response({'messaje':'El ingrediente de preparacion buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        ingrediente_prep_serializer = Ingredientes_preparacionSerializer(ingrediente_prep)
-        return Response(ingrediente_prep_serializer.data,status=status.HTTP_200_OK)
+        detalle_prep_serializer = Detalle_preparacionSerializer(detalle_prep)
+        return Response(detalle_prep_serializer.data,status=status.HTTP_200_OK)
     
     elif request.method == 'PUT':
-        ingrediente_prep_data = JSONParser().parse(request)
-        ingrediente_prep_serializer = Ingredientes_preparacionSerializer(data=ingrediente_prep_data)
-        if ingrediente_prep_serializer.is_valid():
-            ingrediente_prep_serializer.save()
-            return Response(ingrediente_prep_serializer.data,status=status.HTTP_200_OK)
-        return Response(ingrediente_prep_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        detalle_prep_data = JSONParser().parse(request)
+        ingrediente_prep_serializer = Detalle_preparacionSerializer(detalle_prep, data=detalle_prep_data)
+        if detalle_prep_serializer.is_valid():
+            detalle_prep_serializer.save()
+            return Response(detalle_prep_serializer.data,status=status.HTTP_200_OK)
+        return Response(detalle_prep_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        ingrediente_prep.delete()
+        detalle_prep.delete()
         return Response({'message':'Ingrediente de preparacion eliminado correctamente'}, status=status.HTTP_200_OK)
 
 #GET, POST PUT DELETE PREPARACIONES-------------------------------------------------------------------------
@@ -146,7 +146,7 @@ def ingrediente_prep_detail(request,id_prep):
 @api_view(['GET','POST','DELETE'])
 def preparacion_list(request):
     if request.method == 'GET':
-        preparaciones = Preparacion.objects.all()
+        preparaciones = preparacion.objects.all()
         preparacion_serializer = PreparacionSerializer(preparaciones,many=True)
         return Response(preparacion_serializer.data,status=status.HTTP_200_OK)
 
@@ -159,14 +159,14 @@ def preparacion_list(request):
         return Response(preparacion_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        count = Preparacion.objects.all().delete()
+        count = preparacion.objects.all().delete()
         return Response({'message:','{} Preparaciones han sido eliminadas de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
 def preparacion_detail(request,id_prep):
     try:
-        preparacion = Preparacion.objects.get(id_prep=id_prep)
-    except Preparacion.DoesNotExist:
+        preparacion = preparacion.objects.get(id_prep=id_prep)
+    except preparacion.DoesNotExist:
         return Response({'messaje':'La preparacion buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':

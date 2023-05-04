@@ -1,11 +1,7 @@
 from rest_framework import serializers
-from .models import Cupon, Compra, Item_compra
+from .models import Compra, Item_compra
 
-class CuponSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cupon
-        fields = ('nombre_cup', 'desc_cup', 'fecha_inicio_cup', 'fecha_fin_cup', 'porc_desc_cup', 'stock_cup', 'id_compra')
-        #read_only_fields = ('id_cat')
+
 
 class CompraSerializer(serializers.ModelSerializer):
     class Meta:

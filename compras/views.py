@@ -4,54 +4,10 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from .models import Cupon, Compra, Item_compra
-from .serializers import CuponSerializer, CompraSerializer, Item_compraSerializer
+from .models import Compra, Item_compra
+from .serializers import CompraSerializer, Item_compraSerializer
 
 # Create your views here.
-#GET, POST PUT DELETE CUPONES-------------------------------------------------------------------------
-
-@api_view(['GET','POST','DELETE'])
-def cupon_list(request):
-    if request.method == 'GET':
-        cupones = Cupon.objects.all()
-        cupon_serializer = CuponSerializer(cupones,many=True)
-        return Response(cupon_serializer.data,status=status.HTTP_200_OK)
-
-    elif request.method == 'POST':
-        cupon_data = JSONParser().parse(request)
-        cupon_serializer = CuponSerializer(data=cupon_data)
-        if cupon_serializer.is_valid():
-            cupon_serializer.save()
-            return Response(cupon_serializer.data,status=status.HTTP_201_CREATED)
-        return Response(cupon_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-    elif request.method == 'DELETE':
-        count = Cupon.objects.all().delete()
-        return Response({'message:','{} Cupones han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
-
-@api_view(['GET','PUT','DELETE'])
-def cupon_detail(request,nombre_cup):
-    try:
-        cupon = Cupon.objects.get(nombre_cup=nombre_cup)
-    except Cupon.DoesNotExist:
-        return Response({'messaje':'El cupon buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        cupon_serializer = CuponSerializer(cupon)
-        return Response(cupon_serializer.data,status=status.HTTP_200_OK)
-    
-    elif request.method == 'PUT':
-        cupon_data = JSONParser().parse(request)
-        cupon_serializer = CuponSerializer(data=cupon_data)
-        if cupon_serializer.is_valid():
-            cupon_serializer.save()
-            return Response(cupon_serializer.data,status=status.HTTP_200_OK)
-        return Response(cupon_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        cupon.delete()
-        return Response({'message':'cupon eliminado correctamente'}, status=status.HTTP_200_OK)
-
 #GET, POST PUT DELETE COMPRA-------------------------------------------------------------------------
 
 @api_view(['GET','POST','DELETE'])

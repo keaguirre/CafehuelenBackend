@@ -4,9 +4,9 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from .models import Local, Totem, Superv_local, Proveedor
-from .serializers import LocalSerializer, TotemSerializer, Superv_localSerializer, ProveedorSerializer
-# bloque productos = Local, Totem, Supervisores_local, Proveedor
+from .models import Local, Totem, Superv_local
+from .serializers import LocalSerializer, TotemSerializer, Superv_localSerializer
+# bloque productos = Local, Totem, Supervisores_local
 # Create your views here.
 
 #GET, POST PUT DELETE LOCAL-------------------------------------------------------------------------
@@ -138,45 +138,3 @@ def superv_local_detail(request,usuario):
         superv_local.delete()
         return Response({'message':'Supervisor eliminado correctamente'}, status=status.HTTP_200_OK)
     
-#GET, POST PUT DELETE PROVEEDOR-------------------------------------------------------------------------
-@api_view(['GET','POST','DELETE'])
-def proveedor_list(request):
-    if request.method == 'GET':
-        proveedores = Proveedor.objects.all()
-        proveedor_serializer = ProveedorSerializer(proveedores,many=True)
-        return Response(proveedor_serializer.data,status=status.HTTP_200_OK)
-
-    elif request.method == 'POST':
-        proveedor_data = JSONParser().parse(request)
-        proveedor_serializer = ProveedorSerializer(data=proveedor_data)
-        if proveedor_serializer.is_valid():
-            proveedor_serializer.save()
-            return Response(proveedor_serializer.data,status=status.HTTP_201_CREATED)
-        return Response(proveedor_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-    elif request.method == 'DELETE':
-        count = Proveedor.objects.all().delete()
-        return Response({'message:','{} Proveedores han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
-
-@api_view(['GET','PUT','DELETE'])
-def proveedor_detail(request,id_proveedor):
-    try:
-        proveedor = Proveedor.objects.get(id_proveedor=id_proveedor)
-    except Proveedor.DoesNotExist:
-        return Response({'messaje':'El proveedor buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        proveedor_serializer = ProveedorSerializer(proveedor)
-        return Response(proveedor_serializer.data,status=status.HTTP_200_OK)
-    
-    elif request.method == 'PUT':
-        proveedor_data = JSONParser().parse(request)
-        proveedor_serializer = ProveedorSerializer(data=proveedor_data)
-        if proveedor_serializer.is_valid():
-            proveedor_serializer.save()
-            return Response(proveedor_serializer.data,status=status.HTTP_200_OK)
-        return Response(proveedor_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        proveedor.delete()
-        return Response({'message':'Proveedor eliminado correctamente'}, status=status.HTTP_200_OK)

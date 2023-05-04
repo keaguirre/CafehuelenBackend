@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Local, Totem, Superv_local, Proveedor
+from .models import Local, Totem, Superv_local
 
 class LocalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,7 +16,3 @@ class Superv_localSerializer(serializers.ModelSerializer):
         model = Superv_local
         fields = ('usuario', 'contrasena', 'local_asignado')
 
-class ProveedorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Proveedor
-        fields = ('id_proveedor', 'nombre_prove', 'num_prove', 'ingredientes_prove')
