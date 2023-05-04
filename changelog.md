@@ -47,6 +47,9 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Cambio en ingrediente, descripcion_ingrediente por nombre_ingrediente
 - Actualizado el /api para que las redirecciones concordaran con los nuevos nombres
 
+### 03/05/23 RollBack minusculas en nombres de tablas
+- RollBack Cambiados los nombres de las tablas a todo minuscula y corregidas todas las menciones debido a errores mayores, se prefiere hacer rollback a ese detalle antes que rehacer todos los metodos en views denuevo.
+- Creado el metodo PATCH para cada view.
+
 ## To do:
 - [ ] Agregar el campo estado a las demas tablas en el modulo Compra y Local
-- [ ] Cambiar todos los nombre de tablas a minus y corregir menciones en base a eso

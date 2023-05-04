@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 # Modelos de bloque productos
 # bloque productos = preparacion, detalle_preparacion, ingrediente, categoria
 
-class categoria(models.Model):
+class Categoria(models.Model):
     id_cat = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Categoria')
     nombre_cat = models.CharField(null=False, blank=False, max_length=30, unique=True, verbose_name='Nombre categoria', 
                                   error_messages={'unique': 'Ya existe una categoría con este nombre.'})
@@ -17,7 +17,7 @@ class categoria(models.Model):
     
     def clean(self):
         # Verificar si ya existe una categoría con el mismo nombre, ignorando mayúsculas y minúsculas
-        existing_categories = categoria.objects.filter(nombre_cat__iexact=self.nombre_cat)
+        existing_categories = Categoria.objects.filter(nombre_cat__iexact=self.nombre_cat)
         if self.pk:
             existing_categories = existing_categories.exclude(pk=self.pk)
         if existing_categories.exists():
@@ -26,7 +26,7 @@ class categoria(models.Model):
     def __str__(self):
         return self.nombre_cat
         
-class ingrediente(models.Model):
+class Ingrediente(models.Model):
     id_ingre = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Ingrediente')
     marca_ingre = models.CharField(max_length=32,null=False, blank=False, default='Ingresar marca', verbose_name='Marca')
     nombre_ingre = models.CharField(max_length=55, default='Ingresar nombre', verbose_name='Nombre ingrediente')
@@ -47,7 +47,7 @@ class ingrediente(models.Model):
     def __str__(self):
         return f"{self.id_ingre} - {self.nombre_ingre}"
     
-class detalle_preparacion(models.Model):
+class Detalle_preparacion(models.Model):
     id_detalle_prep = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Detalle-prep')
     id_prep = models.ForeignKey('preparacion', on_delete=models.CASCADE, default='Blank', related_name='id_preparacion')
     id_ingre = models.ForeignKey('ingrediente', on_delete=models.CASCADE, default='Blank', related_name='id_ingrediente')
@@ -63,7 +63,7 @@ class detalle_preparacion(models.Model):
     def __str__(self):
         return f"id: {self.id_detalle_prep} - prep: {self.id_prep} - ingre: {self.id_ingre}"
     
-class preparacion(models.Model):
+class Preparacion(models.Model):
     id_prep = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Preparacion')
     nombre_prep = models.CharField(max_length=32,null=False, blank=False, default='Ingresar nombre', verbose_name='Nombre preparacion')
     descripcion_prep = models.CharField(max_length=300,null=False, blank=False, default='Ingresar descripcion', verbose_name='Descripcion preparacion')

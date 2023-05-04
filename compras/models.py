@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from productos.models import preparacion
+from productos.models import Preparacion
 from local.models import Totem
 
 #comando salvador: python manage.py migrate --run-syncdb
@@ -30,7 +30,7 @@ class Compra(models.Model):
         return self.id_compra
 
 class Item_compra(models.Model):
-    id_prep = models.ForeignKey(preparacion, on_delete=models.CASCADE, default='null', related_name='id_prep_itemcompra')
+    id_prep = models.ForeignKey(Preparacion, on_delete=models.CASCADE, default='null', related_name='id_prep_itemcompra')
     id_compra = models.ForeignKey(Compra, on_delete=models.CASCADE, default='null', related_name='id_compra_itemcompra')
     cantidad_item = models.IntegerField(verbose_name='Cantidad del item', default=999)
     precio_unitario_item = models.IntegerField(verbose_name='Precio unitario item', default=999)
