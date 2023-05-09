@@ -51,5 +51,9 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - RollBack Cambiados los nombres de las tablas a todo minuscula y corregidas todas las menciones debido a errores mayores, se prefiere hacer rollback a ese detalle antes que rehacer todos los metodos en views denuevo.
 - Creado el metodo PATCH para cada view.
 
+# 08/05/23
+- Creadas las vistas con joins de nombres en vez de id's
+- Creada la vista que permite busqueda de categoria mediante nombre
+
 ## To do:
-- [ ] Agregar el campo estado a las demas tablas en el modulo Compra y Local
+- [x] Agregar el campo estado a las demas tablas en el modulo Compra y Local
