@@ -17,15 +17,16 @@ class Categoria(models.Model):
     
     def clean(self):
         # Verificar si ya existe una categoría con el mismo nombre, ignorando mayúsculas y minúsculas
-        existing_categories = Categoria.objects.filter(nombre_cat__iexact=self.nombre_cat)
+        categoria_existente = Categoria.objects.filter(nombre_cat__iexact=self.nombre_cat)
         if self.pk:
-            existing_categories = existing_categories.exclude(pk=self.pk)
-        if existing_categories.exists():
+            categoria_existente = categoria_existente.exclude(pk=self.pk)
+        if categoria_existente.exists():
             raise ValidationError('Ya existe una categoría con este nombre.')
+        
 
     def __str__(self):
         return self.nombre_cat
-        
+
 class Ingrediente(models.Model):
     id_ingre = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Ingrediente')
     marca_ingre = models.CharField(max_length=32,null=False, blank=False, default='Ingresar marca', verbose_name='Marca')
@@ -37,7 +38,6 @@ class Ingrediente(models.Model):
     fecha_creacion_ingre = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion_ingre = models.DateTimeField(auto_now=True)
     estado = models.BooleanField(null=False, blank=False, verbose_name='Estado ingrediente')
-
 
     class Meta:
         verbose_name='Ingrediente'

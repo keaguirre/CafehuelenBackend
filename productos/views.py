@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from .models import Categoria, Ingrediente, Detalle_preparacion, Preparacion
-from .serializers import CategoriaSerializer, Detalle_prep_relatedSerializer, IngredienteSerializer, Detalle_preparacionSerializer, PreparacionSerializer
-from . serializers import PreparacionCatSerializer
+from .serializers import CategoriaSerializer, Detalle_prep_relatedSerializer, IngredienteSerializer, Detalle_preparacionSerializer, PreparacionSerializer, PreparacionCatSerializer
+from django.db.models import Count
 
 # Create your views here.
 #GET, POST PUT DELETE CATEGORIAS-------------------------------------------------------------------------
@@ -273,3 +273,22 @@ def cat_find_id(request, nombre_cat): #ESTO RETORNA EL NOMBRE CAT ENCONTRADO
             return Response(categoria_find_serializer.data,status=status.HTTP_200_OK)
         else:
             return Response({'messaje':'La categoria buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
+
+#Vista deshabilitados
+@api_view(['GET'])
+def get_disabled_catList(request):
+    if request.method == 'GET':
+        categorias = Categoria.objects.filter(estado=False)
+        datos = []
+        for categoria in categorias:
+            preparaciones = Preparacion.objects.filter(id_cat_prep=categoria.id_cat) #listado de preparaciones por categoria
+            preparaciones_data = [{'nombre_prep': prep.nombre_prep} for prep in preparaciones]
+            categoria_data = {
+                'id_cat': categoria.id_cat,
+                'nombre_cat': categoria.nombre_cat,
+                'estado': categoria.estado,
+                'cantidad_preparaciones': len(preparaciones_data),
+                'preparaciones': preparaciones_data,
+            }
+            datos.append(categoria_data)
+        return Response(datos)

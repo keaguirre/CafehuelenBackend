@@ -55,5 +55,8 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Creadas las vistas con joins de nombres en vez de id's
 - Creada la vista que permite busqueda de categoria mediante nombre
 
+# 11/05/23
+- Vista nueva en el back, desactivados, nombre categoria, cuantas preparaciones, estado y un array con las preparaciones anidadas a esa categoria desactivada
+
 ## To do:
-- [x] Agregar el campo estado a las demas tablas en el modulo Compra y Local
+- [ ] Agregar el campo estado a las demas tablas en el modulo Compra y Local
