@@ -13,7 +13,7 @@ from .serializers import LocalSerializer, TotemSerializer, Superv_localSerialize
 @api_view(['GET','POST','DELETE'])
 def local_list(request):
     if request.method == 'GET':
-        locales = Local.objects.all()
+        locales = Local.objects.all().filter(estado=True)
         local_serializer = LocalSerializer(locales,many=True)
         return Response(local_serializer.data,status=status.HTTP_200_OK)
 
@@ -56,7 +56,7 @@ def local_detail(request,id_local):
 @api_view(['GET','POST','DELETE'])
 def totem_list(request):
     if request.method == 'GET':
-        totems = Totem.objects.all()
+        totems = Totem.objects.all().filter(estado=True)
         totem_serializer = TotemSerializer(totems,many=True)
         return Response(totem_serializer.data,status=status.HTTP_200_OK)
 
@@ -73,9 +73,9 @@ def totem_list(request):
         return Response({'message:','{} Totems han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
-def totem_detail(request,num_totem):
+def totem_detail(request,mac_totem):
     try:
-        totem = Totem.objects.get(num_totem=num_totem)
+        totem = Totem.objects.get(mac_totem=mac_totem)
     except Totem.DoesNotExist:
         return Response({'messaje':'El totem buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
@@ -99,7 +99,7 @@ def totem_detail(request,num_totem):
 @api_view(['GET','POST','DELETE'])
 def superv_local_list(request):
     if request.method == 'GET':
-        supervs_local = Superv_local.objects.all()
+        supervs_local = Superv_local.objects.all().filter(estado=True)
         superv_local_serializer = Superv_localSerializer(supervs_local,many=True)
         return Response(superv_local_serializer.data,status=status.HTTP_200_OK)
 

@@ -58,5 +58,11 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 11/05/23
 - Vista nueva en el back, desactivados, nombre categoria, cuantas preparaciones, estado y un array con las preparaciones anidadas a esa categoria desactivada
 
+# 14/05/23
+- Estados añadidos a models y vistas en el bloque de local
+- Modificada la vista de totem que buscaba detalle por num_totem en vez de mac.
+- Añadido signals para que en la tabla de totem el num_totem sea incremental mediante este trigger.
+
 ## To do:
-- [ ] Agregar el campo estado a las demas tablas en el modulo Compra y Local
+- [ ] Trabajando en como implementar las sessiones desde el front y mantener las request a la api usando esta autenticación.
+- [ ] Agregar el campo estado a las demas tablas en el modulo Compra

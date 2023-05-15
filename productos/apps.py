@@ -6,6 +6,5 @@ class ProductosConfig(AppConfig):
     name = 'productos'
 
     def ready(self):
-        import productos.signals 
-         # Importa el archivo signals.py
+        import productos.signals
 
