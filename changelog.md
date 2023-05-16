@@ -63,6 +63,10 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Modificada la vista de totem que buscaba detalle por num_totem en vez de mac.
 - Añadido signals para que en la tabla de totem el num_totem sea incremental mediante este trigger.
 
+# 15/05/23
+- [x] Implementada la validacion de login desde el back.
+
 ## To do:
-- [ ] Trabajando en como implementar las sessiones desde el front y mantener las request a la api usando esta autenticación.
+- [ ] Trabajando en como implementar las sessiones desde el front.
+- [ ] mantener las request a la api usando esta autenticación.
 - [ ] Agregar el campo estado a las demas tablas en el modulo Compra

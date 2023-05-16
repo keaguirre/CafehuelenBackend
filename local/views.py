@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from .models import Local, Totem, Superv_local
 from .serializers import LocalSerializer, TotemSerializer, Superv_localSerializer
+import json
 # bloque productos = Local, Totem, Supervisores_local
 # Create your views here.
 
@@ -115,8 +116,8 @@ def superv_local_list(request):
         count = Superv_local.objects.all().delete()
         return Response({'message:','{} Supervisores han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET','PUT','DELETE'])
-def superv_local_detail(request,usuario):
+@api_view(['GET','PUT', 'POST','DELETE'])
+def superv_local_detail(request, usuario):
     try:
         superv_local = Superv_local.objects.get(usuario=usuario)
     except Totem.DoesNotExist:
@@ -126,6 +127,16 @@ def superv_local_detail(request,usuario):
         superv_local_serializer = Superv_localSerializer(superv_local)
         return Response(superv_local_serializer.data,status=status.HTTP_200_OK)
     
+    if request.method == 'POST': #POST PARA VALIDAR SUPERVISOR DE LOCAL
+        usr_entrante = request.data['usuario']
+        passw_entrante = request.data['contrasena']
+        usr_encontrado = Superv_local.objects.get(usuario = usr_entrante)
+        passw_encontrada = usr_encontrado.contrasena
+        if(passw_encontrada == passw_entrante):
+            return Response({'message':'ok'},status=status.HTTP_200_OK)
+        else: 
+            return Response({'message':'Información errónea, intente nuevamente'},status=status.HTTP_400_BAD_REQUEST)
+
     elif request.method == 'PUT':
         superv_local_data = JSONParser().parse(request)
         superv_local_serializer = Superv_localSerializer(data=superv_local_data)

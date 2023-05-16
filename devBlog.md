@@ -11,3 +11,11 @@
 
 # 11/05/23
 - Vista nueva en el back, desactivados, nombre categoria, cuantas preparaciones, estado y un array con las preparaciones anidadas a esa categoria desactivada
+
+# 14/05/23
+- Estados añadidos a models y vistas en el bloque de local
+- Modificada la vista de totem que buscaba detalle por num_totem en vez de mac.
+- Añadido signals para que en la tabla de totem el num_totem sea incremental mediante este trigger.
+
+# 15/05/23
+- [x] Implementada la validacion de login desde el back.
