@@ -31,7 +31,7 @@ class Totem(models.Model):
         ordering=['num_totem']
 
     def __int__(self):
-        return self.num_totem
+        return self.mac_totem
     
 class Superv_local(models.Model):
     usuario = models.CharField(primary_key=True, max_length=50, default='null', verbose_name='Usuario')

@@ -5,7 +5,7 @@ urlpatterns = [
     path('local/', local_list),
     path('local/<int:id_local>', local_detail),
     path('totem/', totem_list),
-    path('totem/<int:num_totem>',totem_detail),
+    path('totem/<str:mac_totem>',totem_detail),
     path('superv_local/', superv_local_list),
     path('superv_local/<str:usuario>', superv_local_detail),
 ]

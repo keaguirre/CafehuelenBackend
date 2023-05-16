@@ -74,7 +74,7 @@ def totem_list(request):
         return Response({'message:','{} Totems han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
-def totem_detail(request,mac_totem):
+def totem_detail(request, mac_totem):
     try:
         totem = Totem.objects.get(mac_totem=mac_totem)
     except Totem.DoesNotExist:
