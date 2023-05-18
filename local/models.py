@@ -20,7 +20,7 @@ class Local(models.Model):
         return self.id_local
 
 class Totem(models.Model):
-    num_totem = models.AutoField(primary_key=True, verbose_name='ID Totem', default=0)
+    num_totem = models.AutoField(primary_key=True, verbose_name='ID Totem')
     mac_totem = models.CharField(max_length=50, default='null', verbose_name='Mac Totem')
     local_asignado = models.ForeignKey(Local, on_delete=models.CASCADE, default='null', related_name='id_local_totem')
     estado = models.BooleanField(null=False, blank=False, verbose_name='Estado Totem')
