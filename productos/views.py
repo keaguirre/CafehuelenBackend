@@ -126,7 +126,7 @@ def ingrediente_detail(request,id_ingre):
         ingrediente.delete()
         return Response({'message':'Ingrediente eliminado correctamente'}, status=status.HTTP_200_OK)
     
-#GET, POST PUT DELETE INGREDIENTES_PREPARACION?-------------------------------------------------------------------------
+#GET, POST PUT DELETE DETALLE_PREPARACION-------------------------------------------------------------------------
 
 @api_view(['GET','POST','DELETE'])
 def detalle_prep_list(request):
@@ -195,11 +195,6 @@ def detalle_prep_detail(request,id_detalle_prep):
 
 @api_view(['GET','POST','DELETE'])
 def preparacion_list(request):
-    # if request.method == 'GET': #LISTA
-    #     preparaciones = Preparacion.objects.all()
-    #     preparacion_serializer = PreparacionSerializer(preparaciones,many=True)
-    #     return Response(preparacion_serializer.data,status=status.HTTP_200_OK)
-    
     if request.method == 'GET':
         # preparaciones = Preparacion.objects.all()
         preparaciones = Preparacion.objects \
@@ -258,8 +253,9 @@ def preparacion_detail(request,id_prep):
     elif request.method == 'DELETE':
         preparacion.delete()
         return Response({'message':'Preparacion eliminada correctamente'}, status=status.HTTP_200_OK)
-             
-#---------------------------------------------------------------------------------------
+
+# Vistas personalizadas---------------------------------------------------------------------------------------
+# Encontrar categoria por nombre
 @api_view(['GET'])
 def cat_find_id(request, nombre_cat): #ESTO RETORNA EL NOMBRE CAT ENCONTRADO
     try:
@@ -274,7 +270,7 @@ def cat_find_id(request, nombre_cat): #ESTO RETORNA EL NOMBRE CAT ENCONTRADO
         else:
             return Response({'messaje':'La categoria buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
-#Vista deshabilitados
+#Vista categorias deshabilitados
 @api_view(['GET'])
 def get_disabled_catList(request):
     if request.method == 'GET':
@@ -292,3 +288,33 @@ def get_disabled_catList(request):
             }
             datos.append(categoria_data)
         return Response(datos)
+    
+#Vista preparaciones deshabilitadas, con patch para poder volver a habilitarlas
+@api_view(['GET'])
+def preparacion_disabled_list(request):
+        preparaciones = Preparacion.objects \
+        .select_related('id_cat_prep').filter(estado=False) \
+        .values(
+            'id_prep', 
+            'nombre_prep',
+            'id_cat_prep__nombre_cat',
+            'estado'
+        )
+        preparacion_serializer = PreparacionCatSerializer(preparaciones,many=True)
+        return Response(preparacion_serializer.data,status=status.HTTP_200_OK)
+    
+@api_view(['PATCH'])
+def preparacion_disabled_update(request, id_prep):
+    try:
+        preparacion = Preparacion.objects.get(id_prep=id_prep)
+    except Preparacion.DoesNotExist:
+        return Response({'messaje':'La preparacion buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PATCH':
+        preparacion_data = JSONParser().parse(request)
+        preparacion_serializer = PreparacionSerializer(preparacion, data=preparacion_data, partial=True)
+        if preparacion_serializer.is_valid():
+            preparacion_serializer.save()
+            return Response(preparacion_serializer.data,status=status.HTTP_200_OK)
+        else:    
+            return Response(preparacion_serializer.errors,status=status.HTTP_400_BAD_REQUEST)

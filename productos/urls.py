@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import categoria_list, categoria_detail, cat_find_id, ingrediente_list, ingrediente_detail, detalle_prep_list, detalle_prep_detail, preparacion_list, preparacion_detail, get_disabled_catList
+from .views import categoria_list, categoria_detail, cat_find_id, ingrediente_list, ingrediente_detail, detalle_prep_list, detalle_prep_detail, preparacion_disabled_update, preparacion_list, preparacion_detail, get_disabled_catList, preparacion_disabled_list
 
 urlpatterns = [   
     path('categoria/', categoria_list),
@@ -12,5 +12,7 @@ urlpatterns = [
     path('detalle_prep/<int:id_detalle_prep>', detalle_prep_detail),
     path('preparacion/', preparacion_list),
     path('preparacion/<int:id_prep>', preparacion_detail),
+    path('preparacion/deshabilitadas', preparacion_disabled_list),
+    path('preparacion/deshabilitadas/<int:id_prep>', preparacion_disabled_update),
 #-------------------------------------------
 ]

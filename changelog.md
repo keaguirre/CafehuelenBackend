@@ -66,7 +66,10 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 15/05/23
 - [x] Implementada la validacion de login desde el back.
 
+# 17/05/23
+- Creada nueva vista con preparaciones deshabilitadas y vista con actualización ('PATCH') para reactivar preparación.
+
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
 - [ ] mantener las request a la api usando esta autenticación.
-- [ ] Agregar el campo estado a las demas tablas en el modulo Compra
+- [ ] Agregar el campo estado a las demas tablas en el modulo Compra.
