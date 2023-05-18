@@ -149,3 +149,4 @@ def superv_local_detail(request, usuario):
         superv_local.delete()
         return Response({'message':'Supervisor eliminado correctamente'}, status=status.HTTP_200_OK)
     
+#Vistas personalizadas

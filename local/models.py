@@ -9,7 +9,7 @@ class Local(models.Model):
     id_local = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID_Local')
     nombre_local = models.CharField(max_length=30, default='null', verbose_name='Nombre local')
     fono_local = models.CharField(max_length=32, default='null', verbose_name='Fono local')
-    direccion_local = models.CharField(max_length=32, default='null', verbose_name='Direccion_local')
+    direccion_local = models.CharField(max_length=100, default='null', verbose_name='Direccion_local')
     estado = models.BooleanField(null=False, blank=False, verbose_name='Estado Local')
     class Meta:
         verbose_name='Local'
@@ -20,8 +20,8 @@ class Local(models.Model):
         return self.id_local
 
 class Totem(models.Model):
-    mac_totem = models.CharField(primary_key=True, max_length=50, default='null', verbose_name='Mac Totem')
-    num_totem = models.IntegerField(verbose_name='ID Totem', default=0)
+    num_totem = models.AutoField(primary_key=True, verbose_name='ID Totem', default=0)
+    mac_totem = models.CharField(max_length=50, default='null', verbose_name='Mac Totem')
     local_asignado = models.ForeignKey(Local, on_delete=models.CASCADE, default='null', related_name='id_local_totem')
     estado = models.BooleanField(null=False, blank=False, verbose_name='Estado Totem')
 
@@ -31,7 +31,7 @@ class Totem(models.Model):
         ordering=['num_totem']
 
     def __int__(self):
-        return self.mac_totem
+        return self.num_totem
     
 class Superv_local(models.Model):
     usuario = models.CharField(primary_key=True, max_length=50, default='null', verbose_name='Usuario')

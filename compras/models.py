@@ -17,9 +17,9 @@ class Compra(models.Model):
     procesador_pago_compra = models.CharField(max_length=15,null=False, blank=False, default='transbank', verbose_name='Tipo de pago')
     #campos medios de pago-------
     id_transaccion_compra = models.CharField(max_length=30, null=True, blank=False, default='0', verbose_name='ID Transaccion')
-    cod_comercio_compra = models.CharField(max_length=15,null=True, blank=False, default='0', verbose_name='Cod comercio')
-    respuesta_tb_compra = models.CharField(max_length=15,null=True, blank=False, default='0', verbose_name='Cod comercio')
-    respuesta_mp_compra = models.CharField(max_length=15,null=True, blank=False, default='0', verbose_name='Cod comercio')
+    cod_comercio_compra = models.CharField(max_length=52,null=True, blank=False, default='0', verbose_name='Cod comercio')
+    respuesta_tb_compra = models.CharField(max_length=52,null=True, blank=False, default='0', verbose_name='respuesta_tb_compra')
+    respuesta_mp_compra = models.CharField(max_length=52,null=True, blank=False, default='0', verbose_name='respuesta_mp_compra')
     totem_compra = models.ForeignKey(Totem, on_delete=models.CASCADE, default='null', related_name='id_totem_compra')
 
     class Meta:
@@ -30,6 +30,7 @@ class Compra(models.Model):
         return self.id_compra
 
 class Item_compra(models.Model):
+    id_item_compra = models.AutoField(primary_key=True, verbose_name='id_itemcompra')
     id_prep = models.ForeignKey(Preparacion, on_delete=models.CASCADE, default='null', related_name='id_prep_itemcompra')
     id_compra = models.ForeignKey(Compra, on_delete=models.CASCADE, default='null', related_name='id_compra_itemcompra')
     cantidad_item = models.IntegerField(verbose_name='Cantidad del item', default=999)
@@ -39,7 +40,7 @@ class Item_compra(models.Model):
     class Meta:
         verbose_name='Item_compra'
         verbose_name_plural='Items_compra'
-        ordering=['id_prep']
+        ordering=['id_compra']
 
     def __int__(self):
-        return self.id_prep
+        return self.id_item_compra

@@ -5,5 +5,5 @@ class LocalConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'local'
 
-    def ready(self):
-        import local.signals
+    # def ready(self):
+    #     import local.signals

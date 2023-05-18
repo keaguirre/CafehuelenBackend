@@ -68,6 +68,8 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 
 # 17/05/23
 - Creada nueva vista con preparaciones deshabilitadas y vista con actualización ('PATCH') para reactivar preparación.
+- Alterada la tabla de totem, pk numtomtem, creada la vista busqueda totem por mac.
+- Alterada la tabla de item_compra quien no tenia id.
 
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
