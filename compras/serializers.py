@@ -11,5 +11,5 @@ class CompraSerializer(serializers.ModelSerializer):
 class Item_compraSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item_compra
-        fields = ('id_prep', 'id_compra', 'cantidad_item', 'precio_unitario_item', 'total_item')
+        fields = ('id_item_compra','id_prep', 'id_compra', 'cantidad_item', 'precio_unitario_item', 'total_item')
         #read_only_fields = ('id_prep', 'id_ingre')

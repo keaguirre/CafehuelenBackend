@@ -33,9 +33,9 @@ class Item_compra(models.Model):
     id_item_compra = models.AutoField(primary_key=True, verbose_name='id_itemcompra')
     id_prep = models.ForeignKey(Preparacion, on_delete=models.CASCADE, default='null', related_name='id_prep_itemcompra')
     id_compra = models.ForeignKey(Compra, on_delete=models.CASCADE, default='null', related_name='id_compra_itemcompra')
-    cantidad_item = models.IntegerField(verbose_name='Cantidad del item', default=999)
-    precio_unitario_item = models.IntegerField(verbose_name='Precio unitario item', default=999)
-    total_item = models.IntegerField(verbose_name='Precio unitario item', default=0)
+    cantidad_item = models.IntegerField(verbose_name='Cantidad del item', default=0)
+    precio_unitario_item = models.IntegerField(verbose_name='Precio unitario item', default=0)
+    total_item = models.IntegerField(verbose_name='Total item', default=0)
 
     class Meta:
         verbose_name='Item_compra'

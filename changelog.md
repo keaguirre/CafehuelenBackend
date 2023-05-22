@@ -71,6 +71,10 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Alterada la tabla de totem, pk numtomtem, creada la vista busqueda totem por mac.
 - Alterada la tabla de item_compra quien no tenia id.
 
+# 22/05/23
+- Correccion del detalle de item_compra.
+- Correccion de view en item_compra, apuntaba el modelo equivocado en el metodo post.
+
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
 - [ ] mantener las request a la api usando esta autenticación.

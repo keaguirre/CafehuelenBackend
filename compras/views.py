@@ -30,9 +30,9 @@ def compra_list(request):
         return Response({'message:','{} Compras han sido eliminadas de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
-def compra_detail(request,id_compra):
+def compra_detail(request,id_item_compra):
     try:
-        compra = Compra.objects.get(id_compra=id_compra)
+        compra = Compra.objects.get(id_item_compra=id_item_compra)
     except Compra.DoesNotExist:
         return Response({'messaje':'La compra buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
@@ -63,7 +63,7 @@ def item_compra_list(request):
 
     elif request.method == 'POST':
         item_compra_data = JSONParser().parse(request)
-        item_compra_serializer = CompraSerializer(data=item_compra_data)
+        item_compra_serializer = Item_compraSerializer(data=item_compra_data)
         if item_compra_serializer.is_valid():
             item_compra_serializer.save()
             return Response(item_compra_serializer.data,status=status.HTTP_201_CREATED)
@@ -74,9 +74,9 @@ def item_compra_list(request):
         return Response({'message:','{} Items Compra han sido eliminadas de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','PUT','DELETE'])
-def item_compra_detail(request,id_prep):
+def item_compra_detail(request,id_item_compra):
     try:
-        item_compra = Item_compra.objects.get(id_prep=id_prep)
+        item_compra = Item_compra.objects.get(id_item_compra=id_item_compra)
     except Item_compra.DoesNotExist:
         return Response({'messaje':'El item compra buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 

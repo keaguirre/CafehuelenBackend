@@ -4,5 +4,5 @@ urlpatterns = [
     path('compra/', compra_list),
     path('compra/<int:id_compra>',compra_detail),
     path('item_compra/', item_compra_list),
-    path('item_compra/<int:id_prep>', item_compra_detail),
+    path('item_compra/<int:id_item_compra>', item_compra_detail),
 ]
