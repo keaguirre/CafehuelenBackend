@@ -10,7 +10,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
 class IngredienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingrediente
-        fields = ('id_ingre', 'marca_ingre', 'nombre_ingre', 'stock_ingrediente', 'cantidad_por_unidad_ingrediente', 'tipo_unidad_ingrediente', 'imagen_ingre', 'fecha_creacion_ingre', 'fecha_actualizacion_ingre', 'estado')
+        fields = ('id_ingre', 'nombre_ingre', 'stock_ingrediente', 'tipo_unidad_ingrediente', 'fecha_creacion_ingre', 'fecha_actualizacion_ingre', 'estado')
         #read_only_fields = ('id_ingre')
 
 class Detalle_preparacionSerializer(serializers.ModelSerializer):

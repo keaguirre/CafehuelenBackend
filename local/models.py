@@ -18,20 +18,6 @@ class Local(models.Model):
 
     def __int__(self):
         return self.id_local
-
-class Totem(models.Model):
-    num_totem = models.AutoField(primary_key=True, verbose_name='ID Totem')
-    mac_totem = models.CharField(max_length=50, default='null', verbose_name='Mac Totem')
-    local_asignado = models.ForeignKey(Local, on_delete=models.CASCADE, default='null', related_name='id_local_totem')
-    estado = models.BooleanField(null=False, blank=False, verbose_name='Estado Totem')
-
-    class Meta:
-        verbose_name='Totem'
-        verbose_name_plural='Totems'
-        ordering=['num_totem']
-
-    def __int__(self):
-        return self.num_totem
     
 class Superv_local(models.Model):
     usuario = models.CharField(primary_key=True, max_length=50, default='null', verbose_name='Usuario')
@@ -46,3 +32,17 @@ class Superv_local(models.Model):
 
     def __str__(self):
         return self.usuario
+
+# class Totem(models.Model):
+#     num_totem = models.AutoField(primary_key=True, verbose_name='ID Totem')
+#     mac_totem = models.CharField(max_length=50, default='null', verbose_name='Mac Totem')
+#     local_asignado = models.ForeignKey(Local, on_delete=models.CASCADE, default='null', related_name='id_local_totem')
+#     estado = models.BooleanField(null=False, blank=False, verbose_name='Estado Totem')
+
+#     class Meta:
+#         verbose_name='Totem'
+#         verbose_name_plural='Totems'
+#         ordering=['num_totem']
+
+#     def __int__(self):
+#         return self.num_totem

@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-#comando salvador: manage.py migrate --run-syncdb
+#comando salvador: python manage.py migrate --run-syncdb
 # Modelos de bloque productos
 # bloque productos = preparacion, detalle_preparacion, ingrediente, categoria
 
@@ -15,37 +15,36 @@ class Categoria(models.Model):
         verbose_name_plural='Categorias'
         ordering=['nombre_cat']
     
-    def clean(self):
-        # Verificar si ya existe una categoría con el mismo nombre, ignorando mayúsculas y minúsculas
-        categoria_existente = Categoria.objects.filter(nombre_cat__iexact=self.nombre_cat)
-        if self.pk:
-            categoria_existente = categoria_existente.exclude(pk=self.pk)
-        if categoria_existente.exists():
-            raise ValidationError('Ya existe una categoría con este nombre.')
-        
+    # def clean(self):
+    #     # Verificar si ya existe una categoría con el mismo nombre, ignorando mayúsculas y minúsculas
+    #     categoria_existente = Categoria.objects.filter(nombre_cat__iexact=self.nombre_cat)
+    #     if self.pk:
+    #         categoria_existente = categoria_existente.exclude(pk=self.pk)
+    #     if categoria_existente.exists():
+    #         raise ValidationError('Ya existe una categoría con este nombre.'
 
     def __str__(self):
         return self.nombre_cat
 
 class Ingrediente(models.Model):
     id_ingre = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Ingrediente')
-    marca_ingre = models.CharField(max_length=32,null=False, blank=False, default='Ingresar marca', verbose_name='Marca')
     nombre_ingre = models.CharField(max_length=55, default='Ingresar nombre', verbose_name='Nombre ingrediente')
     stock_ingrediente = models.IntegerField(verbose_name='stock ingrediente', default=0)
-    cantidad_por_unidad_ingrediente = models.IntegerField(verbose_name='Cantidad de ingrediente por unidad', default=0)
     tipo_unidad_ingrediente = models.CharField(max_length=32,null=False, blank=False, default='Ingresar tipo, gr o ml', verbose_name='Tipo unidad ingrediente')
-    imagen_ingre = models.CharField(max_length=300, default='Ingresar link imagen', verbose_name='Link imagen ingrediente')
     fecha_creacion_ingre = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion_ingre = models.DateTimeField(auto_now=True)
     estado = models.BooleanField(null=False, blank=False, verbose_name='Estado ingrediente')
+    # marca_ingre = models.CharField(max_length=32,null=False, blank=False, default='Ingresar marca', verbose_name='Marca')
+    # cantidad_por_unidad_ingrediente = models.IntegerField(verbose_name='Cantidad de ingrediente por unidad', default=0)
+    # imagen_ingre = models.CharField(max_length=300, default='Ingresar link imagen', verbose_name='Link imagen ingrediente')
 
     class Meta:
         verbose_name='Ingrediente'
         verbose_name_plural='Ingredientes'
-        ordering=['id_ingre']
+        ordering=['nombre_ingre']
 
-    def __str__(self):
-        return f"{self.id_ingre} - {self.nombre_ingre}"
+    def __int__(self):
+        return self.id_ingre
     
 class Detalle_preparacion(models.Model):
     id_detalle_prep = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Detalle-prep')
@@ -60,8 +59,8 @@ class Detalle_preparacion(models.Model):
         verbose_name_plural='Detalle_prep'
         ordering=['id_detalle_prep']
 
-    def __str__(self):
-        return f"id: {self.id_detalle_prep} - prep: {self.id_prep} - ingre: {self.id_ingre}"
+    def __int__(self):
+        return self.id_detalle_prep
     
 class Preparacion(models.Model):
     id_prep = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Preparacion')
@@ -75,7 +74,7 @@ class Preparacion(models.Model):
     class Meta:
         verbose_name='Preparacion'
         verbose_name_plural='Preparacion'
-        ordering=['id_prep']
+        ordering=['nombre_prep']
 
     def __int__(self):
         return self.id_prep

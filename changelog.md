@@ -75,6 +75,10 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Correccion del detalle de item_compra.
 - Correccion de view en item_compra, apuntaba el modelo equivocado en el metodo post.
 
+# 25/05/23
+- Quitado el totem de modulo local y las referencias a el en otros modulos
+- Provisoriamente se esta ocupando sqlite3 para los cambios mientras que se terminan ajustes en el front.
+
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
 - [ ] mantener las request a la api usando esta autenticación.

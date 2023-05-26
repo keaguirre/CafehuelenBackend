@@ -13,11 +13,7 @@ from django.db.models import Count
 
 @api_view(['GET','POST','DELETE'])
 def categoria_list(request):
-    # if request.method == 'GET':
-    #     categorias = Categoria.objects.all()
-        
-    #     categoria_serializer = CategoriaSerializer(categorias,many=True)
-    #     return Response(categoria_serializer.data,status=status.HTTP_200_OK)
+
 
     if request.method == 'GET':
         categorias = Categoria.objects.all().filter(estado=True)
@@ -73,11 +69,7 @@ def categoria_detail(request,id_cat):
 
 @api_view(['GET','POST','DELETE'])
 def ingrediente_list(request):
-    # if request.method == 'GET':
-    #     ingredientes = Ingrediente.objects.all()
-    #     ingrediente_serializer = IngredienteSerializer(ingredientes,many=True)
-    #     return Response(ingrediente_serializer.data,status=status.HTTP_200_OK)
-
+    
     if request.method == 'GET':
         ingredientes = Ingrediente.objects.all().filter(estado=True)
         ingrediente_serializer = IngredienteSerializer(ingredientes,many=True)
@@ -130,10 +122,7 @@ def ingrediente_detail(request,id_ingre):
 
 @api_view(['GET','POST','DELETE'])
 def detalle_prep_list(request):
-    # if request.method == 'GET':
-    #     detalles_prep = Detalle_preparacion.objects.all()
-    #     detalle_prep_serializer = Detalle_preparacionSerializer(detalles_prep,many=True)
-    #     return Response(detalle_prep_serializer.data,status=status.HTTP_200_OK)
+    
     if request.method == 'GET':
         detalles_prep = Detalle_preparacion.objects \
         .select_related('id_prep', 'id_ingre').filter(estado=True) \

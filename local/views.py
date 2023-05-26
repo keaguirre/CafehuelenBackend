@@ -4,8 +4,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from .models import Local, Totem, Superv_local
-from .serializers import LocalSerializer, TotemSerializer, Superv_localSerializer
+from .models import Local, Superv_local
+from .serializers import LocalSerializer, Superv_localSerializer
 import json
 # bloque productos = Local, Totem, Supervisores_local
 # Create your views here.
@@ -52,49 +52,6 @@ def local_detail(request,id_local):
     elif request.method == 'DELETE':
         local.delete()
         return Response({'message':'Local eliminado correctamente'}, status=status.HTTP_200_OK)
-
-#GET, POST PUT DELETE TOTEM-------------------------------------------------------------------------
-@api_view(['GET','POST','DELETE'])
-def totem_list(request):
-    if request.method == 'GET':
-        totems = Totem.objects.all().filter(estado=True)
-        totem_serializer = TotemSerializer(totems,many=True)
-        return Response(totem_serializer.data,status=status.HTTP_200_OK)
-
-    elif request.method == 'POST':
-        totem_data = JSONParser().parse(request)
-        totem_serializer = TotemSerializer(data=totem_data)
-        if totem_serializer.is_valid():
-            totem_serializer.save()
-            return Response(totem_serializer.data,status=status.HTTP_201_CREATED)
-        return Response(totem_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-    elif request.method == 'DELETE':
-        count = Totem.objects.all().delete()
-        return Response({'message:','{} Totems han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
-
-@api_view(['GET','PUT','DELETE'])
-def totem_detail(request, mac_totem):
-    try:
-        totem = Totem.objects.get(mac_totem=mac_totem)
-    except Totem.DoesNotExist:
-        return Response({'messaje':'El totem buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        totem_serializer = TotemSerializer(totem)
-        return Response(totem_serializer.data,status=status.HTTP_200_OK)
-    
-    elif request.method == 'PUT':
-        totem_data = JSONParser().parse(request)
-        totem_serializer = TotemSerializer(data=totem_data)
-        if totem_serializer.is_valid():
-            totem_serializer.save()
-            return Response(totem_serializer.data,status=status.HTTP_200_OK)
-        return Response(totem_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        totem.delete()
-        return Response({'message':'Totem eliminado correctamente'}, status=status.HTTP_200_OK)
     
 #GET, POST PUT DELETE SUPERV_LOCAL-------------------------------------------------------------------------
 @api_view(['GET','POST','DELETE'])
@@ -149,4 +106,45 @@ def superv_local_detail(request, usuario):
         superv_local.delete()
         return Response({'message':'Supervisor eliminado correctamente'}, status=status.HTTP_200_OK)
     
-#Vistas personalizadas
+#GET, POST PUT DELETE TOTEM-------------------------------------------------------------------------
+# @api_view(['GET','POST','DELETE'])
+# def totem_list(request):
+#     if request.method == 'GET':
+#         totems = Totem.objects.all().filter(estado=True)
+#         totem_serializer = TotemSerializer(totems,many=True)
+#         return Response(totem_serializer.data,status=status.HTTP_200_OK)
+
+#     elif request.method == 'POST':
+#         totem_data = JSONParser().parse(request)
+#         totem_serializer = TotemSerializer(data=totem_data)
+#         if totem_serializer.is_valid():
+#             totem_serializer.save()
+#             return Response(totem_serializer.data,status=status.HTTP_201_CREATED)
+#         return Response(totem_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+#     elif request.method == 'DELETE':
+#         count = Totem.objects.all().delete()
+#         return Response({'message:','{} Totems han sido eliminados de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
+
+# @api_view(['GET','PUT','DELETE'])
+# def totem_detail(request, mac_totem):
+#     try:
+#         totem = Totem.objects.get(mac_totem=mac_totem)
+#     except Totem.DoesNotExist:
+#         return Response({'messaje':'El totem buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
+
+#     if request.method == 'GET':
+#         totem_serializer = TotemSerializer(totem)
+#         return Response(totem_serializer.data,status=status.HTTP_200_OK)
+    
+#     elif request.method == 'PUT':
+#         totem_data = JSONParser().parse(request)
+#         totem_serializer = TotemSerializer(data=totem_data)
+#         if totem_serializer.is_valid():
+#             totem_serializer.save()
+#             return Response(totem_serializer.data,status=status.HTTP_200_OK)
+#         return Response(totem_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#     elif request.method == 'DELETE':
+#         totem.delete()
+#         return Response({'message':'Totem eliminado correctamente'}, status=status.HTTP_200_OK)
