@@ -79,6 +79,12 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Quitado el totem de modulo local y las referencias a el en otros modulos
 - Provisoriamente se esta ocupando sqlite3 para los cambios mientras que se terminan ajustes en el front.
 
+# 26/05/23
+- Agregado default=True en los estados en todos los modelos
+- Corrido el login a http://localhost:8000/api/superv_local/[usuario]
+- automatizacion de descuento de cantidad por receta ingredientes, item_compra_auto en bloque compras **En desarrollo**
+- Implementación de CoreAPI Docs en http://localhost:8000/api/docs
+
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
 - [ ] mantener las request a la api usando esta autenticación.

@@ -8,7 +8,7 @@ class Categoria(models.Model):
     id_cat = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Categoria')
     nombre_cat = models.CharField(null=False, blank=False, max_length=30, unique=True, verbose_name='Nombre categoria', 
                                 error_messages={'unique': 'Ya existe una categoría con este nombre.'})
-    estado = models.BooleanField(null=False, blank=False, verbose_name='Estado categoria')
+    estado = models.BooleanField(null=False, blank=False, default=True, verbose_name='Estado categoria')
 
     class Meta:
         verbose_name='Categoria'
@@ -33,7 +33,7 @@ class Ingrediente(models.Model):
     tipo_unidad_ingrediente = models.CharField(max_length=32,null=False, blank=False, default='Ingresar tipo, gr o ml', verbose_name='Tipo unidad ingrediente')
     fecha_creacion_ingre = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion_ingre = models.DateTimeField(auto_now=True)
-    estado = models.BooleanField(null=False, blank=False, verbose_name='Estado ingrediente')
+    estado = models.BooleanField(null=False, blank=False, default=True, verbose_name='Estado ingrediente')
     # marca_ingre = models.CharField(max_length=32,null=False, blank=False, default='Ingresar marca', verbose_name='Marca')
     # cantidad_por_unidad_ingrediente = models.IntegerField(verbose_name='Cantidad de ingrediente por unidad', default=0)
     # imagen_ingre = models.CharField(max_length=300, default='Ingresar link imagen', verbose_name='Link imagen ingrediente')
@@ -52,7 +52,7 @@ class Detalle_preparacion(models.Model):
     id_ingre = models.ForeignKey('ingrediente', on_delete=models.CASCADE, default='Blank', related_name='id_ingrediente')
     cantidad_necesaria = models.IntegerField(verbose_name='Cantidad necesaria', null=False, default=1)
     tipo_unidad = models.CharField(max_length=10,null=False, default='Ingresar tipo unidad', verbose_name='Tipo unidad')
-    estado = models.BooleanField(null=False, blank=False, verbose_name='Estado Detalle preparacion')
+    estado = models.BooleanField(null=False, blank=False, default=True, verbose_name='Estado Detalle preparacion')
 
     class Meta:
         verbose_name='Detalle_prep'
@@ -69,7 +69,7 @@ class Preparacion(models.Model):
     imagen_prep = models.CharField(max_length=300, default='Ingresar link imagen', verbose_name='Link imagen preparacion')
     id_cat_prep = models.ForeignKey('categoria', on_delete=models.CASCADE, default='Blank', related_name='id_categoria')
     precio_prep = models.IntegerField(null=False, default=0, verbose_name='Precio preparacion')
-    estado = models.BooleanField(null=False, blank=False, verbose_name='Estado ingrediente')
+    estado = models.BooleanField(null=False, blank=False, default=True, verbose_name='Estado ingrediente')
 
     class Meta:
         verbose_name='Preparacion'

@@ -14,7 +14,6 @@ from django.db.models import Count
 @api_view(['GET','POST','DELETE'])
 def categoria_list(request):
 
-
     if request.method == 'GET':
         categorias = Categoria.objects.all().filter(estado=True)
         categoria_serializer = CategoriaSerializer(categorias,many=True)
@@ -26,8 +25,8 @@ def categoria_list(request):
         if categoria_serializer.is_valid():
             categoria_serializer.save()
             content = 'Categoria '+ categoria_serializer.data['nombre_cat']+ ' Creada'
+            print('cont: ', content)
             return Response(content, status=status.HTTP_201_CREATED)
-            # return Response({'Categoria creada correctamente'}, status=status.HTTP_201_CREATED)
         return Response(categoria_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':

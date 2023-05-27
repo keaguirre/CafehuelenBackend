@@ -22,3 +22,6 @@
 
 # 17/05/23
 - Creada nueva vista con preparaciones deshabilitadas y vista con actualización ('PATCH') para reactivar preparación.
+
+# 26/05/23
+- La automatización pasará a signals

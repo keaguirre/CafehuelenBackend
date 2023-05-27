@@ -77,22 +77,22 @@ def superv_local_list(request):
 def superv_local_detail(request, usuario):
     try:
         superv_local = Superv_local.objects.get(usuario=usuario)
-    except Totem.DoesNotExist:
+    except Superv_local.DoesNotExist:
         return Response({'messaje':'El supervisor buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         superv_local_serializer = Superv_localSerializer(superv_local)
         return Response(superv_local_serializer.data,status=status.HTTP_200_OK)
     
-    if request.method == 'POST': #POST PARA VALIDAR SUPERVISOR DE LOCAL
-        usr_entrante = request.data['usuario']
-        passw_entrante = request.data['contrasena']
-        usr_encontrado = Superv_local.objects.get(usuario = usr_entrante)
-        passw_encontrada = usr_encontrado.contrasena
-        if(passw_encontrada == passw_entrante):
-            return Response({'message':'ok'},status=status.HTTP_200_OK)
-        else: 
-            return Response({'message':'Información errónea, intente nuevamente'},status=status.HTTP_400_BAD_REQUEST)
+    # if request.method == 'POST': #OST PARA VALIDAR SUPERVISOR DE LOCAL
+    #     usr_entrante = request.data['usuario']
+    #     passw_entrante = request.data['contrasena']
+    #     usr_encontrado = Superv_local.objects.get(usuario = usr_entrante)
+    #     passw_encontrada = usr_encontrado.contrasena
+    #     if(passw_encontrada == passw_entrante):
+    #         return Response({'message':'ok'},status=status.HTTP_200_OK)
+    #     else: 
+    #         return Response({'message':'Información errónea, intente nuevamente'},status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'PUT':
         superv_local_data = JSONParser().parse(request)
@@ -105,6 +105,25 @@ def superv_local_detail(request, usuario):
     elif request.method == 'DELETE':
         superv_local.delete()
         return Response({'message':'Supervisor eliminado correctamente'}, status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+def superv_local_login(request, usuario):
+    try:
+        superv_local = Superv_local.objects.get(usuario=usuario)
+    except Superv_local.DoesNotExist:
+        return Response({'messaje':'El supervisor buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
+    
+    usr_entrante = request.data['usuario']
+    passw_entrante = request.data['contrasena']
+    usr_encontrado = Superv_local.objects.get(usuario = usr_entrante)
+    passw_encontrada = usr_encontrado.contrasena
+    if(passw_encontrada == passw_entrante):
+        return Response({'message':'ok'},status=status.HTTP_200_OK)
+    else: 
+        return Response({'message':'Información errónea, intente nuevamente'},status=status.HTTP_400_BAD_REQUEST)
+
+
+
     
 #GET, POST PUT DELETE TOTEM-------------------------------------------------------------------------
 # @api_view(['GET','POST','DELETE'])
