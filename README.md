@@ -1,6 +1,6 @@
-# Cafehuelen API
-API desarrollada con Django, Django REST framework y PostgreSQL, desplegada en [render.com](www.render.com) para servir preparaciones, ingredientes_preparaciones, ingredientes y categorias para [cafehuelen.cl](https://cafehuelen.cl) quién crea y administra preparaciones y manerjo de inventario mediante este servicio. 
-## Para su futuro consumo se encontrará disponible en:<br> https://cafehuelen.cl/ <br>
+# {...} cafeScript API
+API desarrollada con Django, Django REST framework y PostgreSQL, desplegada en [render.com](www.render.com) para servir preparaciones, ingredientes_preparaciones, ingredientes y categorias para [cafeScript.cl](https://cafeScript.cl) quién crea y administra preparaciones y manerjo de inventario mediante este servicio. 
+## Para su futuro consumo se encontrará disponible en:<br> https://cafeScript.cl/ <br>
 
 # Características
 Crear, leer (incluye detalle), actualizar y eliminar:
@@ -10,6 +10,7 @@ Crear, leer (incluye detalle), actualizar y eliminar:
     - items de compra, compras y cupones
 - Módulo de administración:  
     - totems, locales, supervisores de local y proveedores de local.
+- Para más información **http://localhost/api/v1/docs**
 
 # Requerimientos
 - asgiref==3.6.0
@@ -21,4 +22,8 @@ Crear, leer (incluye detalle), actualizar y eliminar:
 Incluidos en requirements.txt para su fácil instalación.
 
 # Imágenes
-![Screenshot](https://github.com/keaguirre/CafehuelenBackend/blob/main/Documentos/web.png?raw=true)
+## Home
+![Home](https://raw.githubusercontent.com/keaguirre/cafeScript-Backend/main/Documentos/indexWeb.png)
+
+## Home API 
+![HomeAPI](https://raw.githubusercontent.com/keaguirre/cafeScript-Backend/main/Documentos/indexApi.png)
