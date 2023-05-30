@@ -12,50 +12,61 @@
 </head>
 <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
     <header class="max-w-lg mx-auto">
-        <a href="/" class="text-4xl font-bold text-white text-center"><h1>Cafe Huelen API</h1></a>
+        <a href="/" class="text-5xl font-bold text-white text-center" style="font-family: 'Source Sans Pro', sans-serif;"><h1>{...}cafeScript API</h1></a>
     </header>
-<div class="flex flex-row flex-wrap">
-    <section class="w-full bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-        <h1 class="text-4xl font-bold pb-10 text-green-800 text-center">Productos</h1>
-        <a href="categoria"><button class="w-full text-center flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Categorias</button></a>
-        <a href="categoria/deshabilitadas"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Categorias deshabilitadas</button></a>
-        <button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">api/categoria/find_id/nombre_cat</button>
-        <a href="ingrediente"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Ingredientes</button></a>
-        <a href="detalle_prep"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Detalle preparacion</button></a>
-        <a href="preparacion"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Preparaciones</button></a>
-        <a href="preparacion/deshabilitadas"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Preparaciones deshabilitadas</button></a>
-        <button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">api/cpreparacion/deshabilitadas/id_cat,<br> (obj patch)</button>
-    </section>
-    <section class="w-full bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-        <h1 class="text-4xl font-bold pb-10 text-green-800 text-center">Compra</h1>
-        <a href="compra"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Compras</button></a>
-        <a href="item_compra"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Item compras</button></a>
-        <a href="item_compra_auto"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Item compras automatizacion (POST)</button></a>
-        <a href="/admin"><button id="adm-btn" class="w-full flex flex-col bg-red-600 mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Admin</button></a>
-    </section>
-    <section class="w-full bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-        <h1 class="text-4xl font-bold pb-10 text-green-800 text-center">Local</h1>
-        <a href="superv_local"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl bg-red-700" type="button">Supervisores</button></a>
-        <a href="local"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Locales</button></a>
-        <!-- <a href="totem"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Totems</button></a> -->
-    </section>
-</div>
+    <div class="flex flex-row flex-wrap">
+        <section class="seccion w-full bg-section max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+            <h1 class="text-4xl font-bold pb-10 titles text-center">Productos</h1>
+            <a href="v1/categorias"><button class="w-full text-center flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Categorias</button></a>
+            <a href="v1/categorias/deshabilitadas"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Categorias deshabilitadas</button></a>
+            <button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">api/categoria/find_id/nombre_cat</button>
+            <a href="v1/ingredientes"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Ingredientes</button></a>
+            <a href="v1/detalles_prep"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Detalle preparacion</button></a>
+            <a href="v1/preparaciones"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Preparaciones</button></a>
+            <a href="v1/preparaciones/deshabilitadas"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Preparaciones deshabilitadas</button></a>
+            <button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">api/cpreparacion/deshabilitadas/id_cat,<br> (obj patch)</button>
+        </section>
+        <section class="w-full bg-section max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+            <h1 class="text-4xl font-bold pb-10 titles text-center">Compras</h1>
+            <a href="v1/compras"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Compras</button></a>
+            <a href="v1/items_compra"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Item compras</button></a>
+            <a href="v1/items_compra_auto"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Item compras automatizacion (POST)</button></a>
+            <a href="/admin"><button id="adm-btn" class="w-full flex flex-col mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Admin</button></a>
+        </section>
+        <section class="w-full bg-section max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+            <h1 class="text-4xl font-bold pb-10 titles text-center">Locales</h1>
+            <a href="v1/supervisores_local"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Supervisores</button></a>
+            <a href="v1/locales"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Locales</button></a>
+            <!-- <a href="v1/totem"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Totems</button></a> -->
+        </section>
+    </div>
 </body>
 <footer class="">
     <h1 class="text-center text-white font-bold text-2xl">Hecho por BrewSoftware</h1>
 </footer>
 <style>
+    .titles{
+        color:#EDEDED
+    }
     .body-bg {
-        background-color: #059669;
+        background-color: #383A59;
     }
     .api-btn{
-        background-color: #008875;
+        background-color: #414558;
     }
     .api-btn:hover{
-        background-color: #007879;
+        color: #FFB86B;
+    }
+    #adm-btn{
+        background-color: #FF79C6;
+        color: #282A36;
     }
     #adm-btn:hover{
-        background-color: #b20008;
+        color: #414558;
+    }
+    .bg-section{
+        background-color: #282A36;
+        
     }
 </style>
 </html>

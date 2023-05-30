@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Café Huelén</title>
+	<title>cafeScript</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	
@@ -36,32 +36,26 @@
 				
 	</style>
 </head>
-<body class="leading-normal tracking-normal text-gray-900" style="font-family: 'Source Sans Pro', sans-serif;">
-<div class="h-screen pb-14 bg-right bg-cover" style="background-image:url('{% static 'bg.svg' %}');">
+<body class="bg leading-normal tracking-normal text-gray-900" style="font-family: 'Source Sans Pro', sans-serif;">
+<!-- <div class="h-screen pb-14 bg-right bg-cover" style="background-image:url('{% static 'bg.svg' %}');"> -->
 	<!--Nav-->
 	<div class="w-full container mx-auto p-6">
-			
 		<div class="w-full flex items-center justify-between">
-			<a class="flex items-center text-green-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"  href="#"> 
-				<img src="https://img.icons8.com/external-wanicon-two-tone-wanicon/64/null/external-paper-cup-products-packaging-wanicon-two-tone-wanicon.png"/> 
-				Cafe Huelén
-			</a>
+			<span><a class="flex items-center header-text no-underline hover:no-underline font-bold text-2xl lg:text-4xl"  href="#"> {...}cafeScript</a></span>
 		</div>
-
 	</div>
-
 	<!--Main-->
 	<div class="container px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
 		<!--Left Col-->
 		<div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
-			<h1 class="my-4 text-3xl md:text-5xl text-green-600 font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Estamos preparando cafehuelen.cl para ti</h1>
-			<p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">Prontamente consulte la web para más actualizaciones</p>
+			<h1 class="my-4 text-3xl md:text-5xl header-text font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Estamos preparando cafehuelen.cl para ti</h1>
+			<p class="text-rosa leading-normal text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">Prontamente consulte la web para más actualizaciones</p>
 		</div>
 		<!--Right Col-->
 		<div class="w-full xl:w-3/5 2xl:py-6 overflow-y-hidden">
             <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="{% static 'under_construction.svg' %}">
 		</div>
-        <h4 class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden leading-normal text-base md:text-2xl text-center md:text-left slide-in-bottom-subtitle"><a href='api/'>Hecho por BrewSoftware.</a></h4>
+        <h4 class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden leading-normal text-base md:text-2xl text-center md:text-left slide-in-bottom-subtitle" style="color: #8BE9FD;"><a href='api/'>Hecho por BrewSoftware.</a></h4>
 	</div>
 </div>
   <!-- jQuery if you need it
@@ -70,4 +64,15 @@
 
 </body>
 
+<style>
+	.header-text{
+		color: #EDEDED;
+	}
+	.bg{
+		background-color: #282A36;
+	}
+	.text-rosa{
+		color: #FF79C6;
+	}
+</style>
 </html>

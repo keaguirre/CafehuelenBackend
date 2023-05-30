@@ -7,10 +7,11 @@ from rest_framework.decorators import api_view
 from .models import Categoria, Ingrediente, Detalle_preparacion, Preparacion
 from .serializers import CategoriaSerializer, Detalle_prep_relatedSerializer, IngredienteSerializer, Detalle_preparacionSerializer, PreparacionSerializer, PreparacionCatSerializer
 from django.db.models import Count
-
+from django.views.decorators.cache import cache_page
 # Create your views here.
 #GET, POST PUT DELETE CATEGORIAS-------------------------------------------------------------------------
 
+#@cache_page(60 * 15)
 @api_view(['GET','POST','DELETE'])
 def categoria_list(request):
 
@@ -180,7 +181,7 @@ def detalle_prep_detail(request,id_detalle_prep):
         return Response({'message':'Detalle de la preparación eliminado correctamente'}, status=status.HTTP_200_OK)
 
 #GET, POST PUT DELETE PREPARACIONES-------------------------------------------------------------------------
-
+#@cache_page(60 * 15)
 @api_view(['GET','POST','DELETE'])
 def preparacion_list(request):
     if request.method == 'GET':
@@ -242,8 +243,8 @@ def preparacion_detail(request,id_prep):
         preparacion.delete()
         return Response({'message':'Preparacion eliminada correctamente'}, status=status.HTTP_200_OK)
 
-# Vistas personalizadas---------------------------------------------------------------------------------------
-# Encontrar categoria por nombre
+# Vistas personalizadas-Encontrar categoria por nombre-----------------------------------------------------------------------
+#@cache_page(60 * 15)
 @api_view(['GET'])
 def cat_find_id(request, nombre_cat): #ESTO RETORNA EL NOMBRE CAT ENCONTRADO
     try:
@@ -259,25 +260,26 @@ def cat_find_id(request, nombre_cat): #ESTO RETORNA EL NOMBRE CAT ENCONTRADO
             return Response({'messaje':'La categoria buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
 #Vista categorias deshabilitados
+#@cache_page(60 * 15)
 @api_view(['GET'])
 def get_disabled_catList(request):
-    if request.method == 'GET':
-        categorias = Categoria.objects.filter(estado=False)
-        datos = []
-        for categoria in categorias:
-            preparaciones = Preparacion.objects.filter(id_cat_prep=categoria.id_cat) #listado de preparaciones por categoria
-            preparaciones_data = [{'nombre_prep': prep.nombre_prep} for prep in preparaciones]
-            categoria_data = {
-                'id_cat': categoria.id_cat,
-                'nombre_cat': categoria.nombre_cat,
-                'estado': categoria.estado,
-                'cantidad_preparaciones': len(preparaciones_data),
-                'preparaciones': preparaciones_data,
-            }
-            datos.append(categoria_data)
-        return Response(datos)
+    categorias = Categoria.objects.filter(estado=False)
+    datos = []
+    for categoria in categorias:
+        preparaciones = Preparacion.objects.filter(id_cat_prep=categoria.id_cat) #listado de preparaciones por categoria
+        preparaciones_data = [{'nombre_prep': prep.nombre_prep} for prep in preparaciones]
+        categoria_data = {
+            'id_cat': categoria.id_cat,
+            'nombre_cat': categoria.nombre_cat,
+            'estado': categoria.estado,
+            'cantidad_preparaciones': len(preparaciones_data),
+            'preparaciones': preparaciones_data,
+        }
+        datos.append(categoria_data)
+    return Response(datos)
     
 #Vista preparaciones deshabilitadas, con patch para poder volver a habilitarlas
+#@cache_page(60 * 15)
 @api_view(['GET'])
 def preparacion_disabled_list(request):
         preparaciones = Preparacion.objects \

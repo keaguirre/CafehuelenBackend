@@ -1,9 +1,10 @@
 from django.urls import path, include
-from .views import  compra_list, compra_detail, item_compra_list, item_compra_detail, item_compra_auto
+from .views import  compra_list, compra_detail, item_compra_list, item_compra_detail, item_compra_auto, compras_recientes
 urlpatterns = [   
-    path('compra/', compra_list),
-    path('compra/<int:id_compra>',compra_detail),
-    path('item_compra/', item_compra_list),
-    path('item_compra/<int:id_item_compra>', item_compra_detail),
-    path('item_compra_auto/', item_compra_auto),
+    path('compras/', compra_list),
+    path('compras/<int:id_compra>',compra_detail),
+    path('compras/compras_recientes', compras_recientes),
+    path('items_compra/', item_compra_list),
+    path('items_compra/<int:id_item_compra>', item_compra_detail),
+    path('items_compra_auto/', item_compra_auto),
 ]

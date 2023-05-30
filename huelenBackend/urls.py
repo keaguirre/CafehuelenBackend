@@ -21,8 +21,8 @@ from rest_framework.documentation import include_docs_urls
 urlpatterns = [
     path('',include('core.urls')),
     path('admin/', admin.site.urls),
-    path('api/', include('productos.urls')),
-    path('api/', include('compras.urls')),
-    path('api/', include('local.urls')),
-    path('api/docs', include_docs_urls(title='cafeScript API')),
+    path('api/v1/', include('productos.urls')),
+    path('api/v1/', include('compras.urls')),
+    path('api/v1/', include('local.urls')),
+    path('api/v1/docs', include_docs_urls(title='cafeScript API')),
 ]

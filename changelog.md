@@ -85,6 +85,12 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - automatizacion de descuento de cantidad por receta ingredientes, item_compra_auto en bloque compras **En desarrollo**
 - Implementación de CoreAPI Docs en http://localhost:8000/api/docs
 
+# 29/05/23
+- Agregado el parametro v1 despues de api para versionar la api.
+- Creada la vista compras recientes en el módulo de compras, la cual tiene, numero_compra, tipo_servicio y [ compras relacionadas ]
+- Comienza el rebranding en las paginas html del backend a cafeScript
+
+
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
 - [ ] mantener las request a la api usando esta autenticación.

@@ -26,6 +26,7 @@ class Compra(models.Model):
     class Meta:
         verbose_name='Compra'
         verbose_name_plural='Compras'
+        ordering=['fecha_compra']
 
     def __int__(self):
         return self.id_compra
