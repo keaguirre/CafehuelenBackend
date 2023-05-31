@@ -132,24 +132,21 @@ def item_compra_auto(request): #implementar la logica
             det_prep = Detalle_preparacion.objects.filter(id_prep=id_prep)
             print('listado obj detalle prep: ', det_prep)
             for i in det_prep:
-                print('----------------------------------------------')
-                print('cantidad necesaria: ', i.cantidad_necesaria)
                 totalEntrante = i.cantidad_necesaria * cant_item
-                print('cantidad total resta: ', totalEntrante)
-                print('tipo unidad: ', i.tipo_unidad)
                 tipo_unidad_detalle_prep = i.tipo_unidad
                 id_ingre_detalle_prep = i.id_ingre
-                print('id_ingre: ', i.id_ingre)
-                print('-------------Ingrediente relacionado-----------')
                 ingre = Ingrediente.objects.get(id_ingre=id_ingre_detalle_prep)
-                print('stock ingre: ', ingre.stock_ingrediente)
-                print('tipo_unidad: ', ingre.tipo_unidad_ingrediente)
+                stock_actual = ingre.stock_ingrediente
                 tipo_unidad_ingrediente = ingre.tipo_unidad_ingrediente
-                print('----------------------------------------------')
-
                 if tipo_unidad_detalle_prep == tipo_unidad_ingrediente:
-                    print('tipos de unidad iguales')
-                    
+                    if stock_actual - totalEntrante < 0:
+                        return Response({'Resta no fue posible, revisar stock'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    elif stock_actual - totalEntrante >= 0:
+                        ingre.stock_ingrediente = stock_actual - totalEntrante
+                        ingre.save()
+                        return Response({'Stock actualizado correctamente correctamente'}, status=status.HTTP_200_OK)
+                    else:
+                        return Response({'Error interno'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Detalle_preparacion.DoesNotExist:
             return Response({'messaje':'El item compra buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
     return Response(item_compra_data, status=status.HTTP_200_OK) 

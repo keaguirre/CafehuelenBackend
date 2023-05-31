@@ -14,7 +14,6 @@ from django.views.decorators.cache import cache_page
 #@cache_page(60 * 15)
 @api_view(['GET','POST','DELETE'])
 def categoria_list(request):
-
     if request.method == 'GET':
         categorias = Categoria.objects.all().filter(estado=True)
         categoria_serializer = CategoriaSerializer(categorias,many=True)
@@ -66,7 +65,6 @@ def categoria_detail(request,id_cat):
         return Response({'message':'Categoria eliminada correctamente'}, status=status.HTTP_200_OK)
     
 #GET, POST PUT DELETE INGREDIENTES-------------------------------------------------------------------------
-
 @api_view(['GET','POST','DELETE'])
 def ingrediente_list(request):
     
@@ -308,3 +306,12 @@ def preparacion_disabled_update(request, id_prep):
             return Response(preparacion_serializer.data,status=status.HTTP_200_OK)
         else:    
             return Response(preparacion_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+def actualizacion_stock(request, id_ingre, stock_entrante):
+    try:
+        ingrediente = Ingrediente.objects.get(id_ingre=id_ingre)
+        ingrediente.stock_ingrediente + stock_entrante
+        ingrediente.save()
+    except Ingrediente.DoesNotExist:
+        return Response({'messaje':'El ingrediente buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)

@@ -10,7 +10,7 @@ Crear, leer (incluye detalle), actualizar y eliminar:
     - items de compra, compras y cupones
 - Módulo de administración:  
     - totems, locales, supervisores de local y proveedores de local.
-- Para más información **http://localhost/api/v1/docs**
+- Para más información **http://localhost:8000/api/v1/docs**
 
 # Requerimientos
 - asgiref==3.6.0

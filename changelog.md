@@ -88,7 +88,11 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 29/05/23
 - Agregado el parametro v1 despues de api para versionar la api.
 - Creada la vista compras recientes en el módulo de compras, la cual tiene, numero_compra, tipo_servicio y [ compras relacionadas ]
-- Comienza el rebranding hecho
+- Rebranding hecho
+
+# 30/05/23
+- [x]automatizacion de descuento de cantidad por receta ingredientes, item_compra_auto en bloque compras **Completado**
+- nueva vista para agregar el stock
 
 
 ## To do:
