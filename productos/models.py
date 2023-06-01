@@ -6,8 +6,7 @@ from django.core.exceptions import ValidationError
 
 class Categoria(models.Model):
     id_cat = models.AutoField(primary_key=True, null=False, blank=False, verbose_name='ID Categoria')
-    nombre_cat = models.CharField(null=False, blank=False, max_length=30, unique=True, verbose_name='Nombre categoria', 
-                                error_messages={'unique': 'Ya existe una categoría con este nombre.'})
+    nombre_cat = models.CharField(null=False, blank=False, max_length=30, verbose_name='Nombre categoria')
     estado = models.BooleanField(null=False, blank=False, default=True, verbose_name='Estado categoria')
 
     class Meta:
