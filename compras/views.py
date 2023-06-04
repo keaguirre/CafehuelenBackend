@@ -9,6 +9,8 @@ from .models import Compra, Item_compra
 from .serializers import CompraSerializer, Item_compraSerializer
 from productos.models import Ingrediente, Detalle_preparacion, Preparacion
 from django.db.models import F
+from django.core.paginator import Paginator, Page
+
 # Create your views here.
 #GET, POST PUT DELETE COMPRA-------------------------------------------------------------------------
 
@@ -121,8 +123,46 @@ def compras_recientes(request):
         datos.append(compra_data)
     return Response(datos, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def compras_recientes_paginadas(request):
+    compras = Compra.objects.all().order_by('-fecha_compra')  # Ordena por fecha_compra en orden descendente con el parametro -
+    paginator = Paginator(compras, 3)# Divide los resultados en páginas de n cantidad de elementos
+
+    page_number = request.GET.get('page') # Obtén el número de página de los parámetros de la solicitud
+    page_obj = paginator.get_page(page_number) # Obtiene el objeto de página correspondiente al número de página
+
+    datos = []
+    for compra in page_obj: # Itera sobre los elementos de la página actual
+        items = Item_compra.objects.filter(id_compra=compra.id_compra)
+        compras_data = []
+        for item in items:
+            preparacion = Preparacion.objects.get(id_prep=item.id_prep)
+            item_data = {
+                'nombre_prep': preparacion.nombre_prep,
+                'cantidad_item': item.cantidad_item
+            }
+            compras_data.append(item_data)
+
+        compra_data = {
+            'id_compra': compra.id_compra,
+            'tipo_servicio_compra': compra.tipo_servicio_compra,
+            'preparaciones': compras_data
+        }
+        datos.append(compra_data)
+
+        '''
+        response_data = {
+        'count': paginator.count,
+        'num_pages': paginator.num_pages,
+        'current_page': page_number,
+        'results': datos
+        }
+        '''
+    return Response(datos, status=status.HTTP_200_OK)
+
+
 @api_view(['POST'])
-def item_compra_auto(request): #implementar la logica
+def item_compra_auto(request): 
     item_compra_data = JSONParser().parse(request)
     print('data_entrante: ', item_compra_data)
     for item in item_compra_data:

@@ -94,6 +94,8 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - [x]automatizacion de descuento de cantidad por receta ingredientes, item_compra_auto en bloque compras **Completado**
 - nueva vista para agregar el stock
 
+# 03/06/23
+- Creada la vista de compras recientes con paginacion en http://localhost:8000/api/v1/compras/compras_recientes_paginadas y si se quiere solicitar por alguna pagina se usa el parametro ?page=[numero de la pagina] al final de la url
 
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
