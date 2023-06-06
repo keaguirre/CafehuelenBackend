@@ -17,6 +17,7 @@ from django.db.models import Count
 from django.utils import timezone
 from django.db import connection
 from django.db.models.functions import ExtractWeek, ExtractMonth, ExtractYear
+from django.db.models import Sum
 
 DIAS_SEMANA = {
     'Monday': 'Lunes',
@@ -223,6 +224,7 @@ def item_compra_auto(request):
             return Response({'messaje':'El item compra buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
     return Response(item_compra_data, status=status.HTTP_200_OK) 
 
+#--------------------------------------Analiticas---------------------------------------------------------------------
 
 @api_view(['GET']) #Retorna el nombre del dia y la cantidad de compras por dia
 def compras_dia_semana(request):
@@ -353,4 +355,153 @@ def compras_por_mes_anual(request):
 
     data = [{'mes': MONTH_TRANSLATIONS[row[0]], 'total_compras': row[1]} for row in rows]
 
-    return Response(data)
+    return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def total_compras_hoy(request):
+    fecha_actual = timezone.now().date()
+    fecha_siguiente = fecha_actual + timedelta(days=1)
+    
+    total_compra_hoy = Compra.objects.filter(fecha_compra__gte=fecha_actual, fecha_compra__lt=fecha_siguiente).aggregate(total_compra_hoy=Sum('total_compra'))
+    total = total_compra_hoy['total_compra_hoy'] or 0
+
+    fecha_actual_str = fecha_actual.strftime("%d/%m/%Y")
+
+    return Response({'fecha_hoy': fecha_actual_str, 'total_compra': total}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def sum_total_compra_week(request):
+    fecha_actual = timezone.now().date()
+    fecha_inicio_semana = fecha_actual - timedelta(days=fecha_actual.weekday())
+    fecha_fin_semana = fecha_inicio_semana + timedelta(days=7)
+
+    total_compra_week = Compra.objects.filter(fecha_compra__gte=fecha_inicio_semana, fecha_compra__lt=fecha_fin_semana).aggregate(total_compra_week=Sum('total_compra'))
+    total = total_compra_week['total_compra_week'] or 0
+
+    return Response({'total_compra_semanal': total})
+
+@api_view(['GET'])
+def total_compra_diaria_semanal(request):    
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT rtrim(TO_CHAR(fecha_compra, 'Day')) AS dia_semana, sum(total_compra) AS total_compras
+            FROM compras_compra
+            WHERE fecha_compra >= date_trunc('week', CURRENT_DATE)
+                AND fecha_compra < date_trunc('week', CURRENT_DATE) + INTERVAL '1 week'
+            GROUP BY dia_semana
+            ORDER BY dia_semana
+        """)
+        results = cursor.fetchall()
+
+    response_data = []
+    for row in results:
+        dia_semana = row[0]
+        total_compras = row[1]
+        dia_semana_traducido = DIAS_SEMANA.get(dia_semana, dia_semana)
+        response_data.append({
+            'dia_semana': dia_semana_traducido,
+            'total_compras': total_compras
+        })
+    return Response(response_data)
+
+@api_view(['GET'])
+def total_compra_semanal_anual(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT EXTRACT(WEEK FROM fecha_compra) AS semana, sum(cc.total_compra) AS total_compras
+            FROM compras_compra cc
+            WHERE EXTRACT(MONTH FROM fecha_compra) = EXTRACT(MONTH FROM CURRENT_DATE)
+                AND EXTRACT(YEAR FROM fecha_compra) = EXTRACT(YEAR FROM CURRENT_DATE)
+            GROUP BY semana
+            ORDER BY semana
+        """)
+        results = cursor.fetchall()
+
+    response_data = []
+    for row in results:
+        semana = row[0]
+        total_compras = row[1]
+        response_data.append({
+            'semana': int(semana),
+            'total_compras': total_compras
+        })
+
+    return Response(response_data)
+
+@api_view(['GET'])
+def total_compra_semanal_mes(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT
+                date_part('W', fecha_compra) - date_part('W', date_trunc('month', CURRENT_DATE)) + 1 AS semana_del_mes,
+                EXTRACT(MONTH FROM fecha_compra) AS mes,
+                sum(cc.total_compra) AS total_compras
+            FROM compras_compra cc
+            WHERE EXTRACT(MONTH FROM fecha_compra) = EXTRACT(MONTH FROM CURRENT_DATE)
+                AND EXTRACT(YEAR FROM fecha_compra) = EXTRACT(YEAR FROM CURRENT_DATE)
+            GROUP BY mes, semana_del_mes
+            ORDER BY mes, semana_del_mes
+        """)
+        results = cursor.fetchall()
+
+    response_data = []
+    for row in results:
+        semana_del_mes = int(row[0])
+        mes = int(row[1])
+        total_compras = row[2]
+        mes_nombre = MONTH_TRANSLATIONS.get(mes, '')
+        response_data.append({
+            'semana_del_mes': semana_del_mes,
+            'mes': mes_nombre,
+            'total_compras': total_compras
+        })
+
+    return Response(response_data)
+
+@api_view(['GET'])
+def total_compra_semanal_mes_anterior(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT
+                date_part('W', fecha_compra) - date_part('W', date_trunc('month', CURRENT_DATE)) + 1 AS semana_del_mes,
+                EXTRACT(MONTH FROM fecha_compra) AS mes,
+                sum(cc.total_compra) AS total_compras
+            FROM compras_compra cc
+            WHERE EXTRACT(MONTH FROM fecha_compra) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month' )
+                AND EXTRACT(YEAR FROM fecha_compra) = EXTRACT(YEAR FROM CURRENT_DATE)
+            GROUP BY mes, semana_del_mes
+            ORDER BY mes, semana_del_mes
+        """)
+        results = cursor.fetchall()
+
+    response_data = []
+    for row in results:
+        semana_del_mes = int(row[0])
+        mes = int(row[1])
+        total_compras = row[2]
+        mes_nombre = MONTH_TRANSLATIONS.get(mes, '')
+        response_data.append({
+            'semana_del_mes': semana_del_mes,
+            'mes': mes_nombre,
+            'total_compras': total_compras
+        })
+
+    return Response(response_data)
+
+@api_view(['GET'])
+def total_compras_por_mes_anual(request):
+    with connection.cursor() as cursor:
+        query = """
+            SELECT EXTRACT(MONTH FROM fecha_compra)::INTEGER AS mes, sum(cc.total_compra) AS total_compras
+            FROM compras_compra cc
+            WHERE EXTRACT(MONTH FROM fecha_compra) = EXTRACT(MONTH FROM CURRENT_DATE)
+                AND EXTRACT(YEAR FROM fecha_compra) = EXTRACT(YEAR FROM CURRENT_DATE)
+            GROUP BY mes
+            ORDER BY mes
+        """
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+    data = [{'mes': MONTH_TRANSLATIONS[row[0]], 'total_compras': row[1]} for row in rows]
+
+    return Response(data, status=status.HTTP_200_OK)

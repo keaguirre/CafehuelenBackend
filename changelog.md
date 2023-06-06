@@ -101,6 +101,7 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Creadas las vistas de analiticas de compras en el bloque de compras.
 - Se crea un nuevo item en el index api para ir a la pagina de analiticas.
 - Analiticas de cantidad de compras.
+- Analiticas de total monetario de compras.
 
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
