@@ -9,3 +9,6 @@ def home(request):
 
 def homeApi(request):
     return render(request, 'indexAPI.html')
+
+def homeAnaliticas(request):
+    return render(request, 'homeAnaliticas.html')

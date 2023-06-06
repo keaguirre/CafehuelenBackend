@@ -97,6 +97,11 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 03/06/23
 - Creada la vista de compras recientes con paginacion en http://localhost:8000/api/v1/compras/compras_recientes_paginadas y si se quiere solicitar por alguna pagina se usa el parametro ?page=[numero de la pagina] al final de la url
 
+# 06/06/23
+- Creadas las vistas de analiticas de compras en el bloque de compras.
+- Se crea un nuevo item en el index api para ir a la pagina de analiticas.
+- Analiticas de cantidad de compras.
+
 ## To do:
 - [ ] Trabajando en como implementar las sessiones desde el front.
 - [ ] mantener las request a la api usando esta autenticación.
