@@ -225,7 +225,20 @@ def item_compra_auto(request):
     return Response(item_compra_data, status=status.HTTP_200_OK) 
 
 #--------------------------------------Analiticas---------------------------------------------------------------------
+@api_view(['GET'])
+def cantidad_compras_hoy(request):
+    today = date.today()
+    tomorrow = today + timedelta(days=1)
 
+    count = Compra.objects.filter(fecha_compra__gte=today, fecha_compra__lt=tomorrow).count()
+
+    response_data = {
+        'count': count
+    }
+
+    return Response(response_data, status=status.HTTP_200_OK)
+
+    return Response({'fecha_hoy': fecha_actual_str, 'total_compra': total}, status=status.HTTP_200_OK)
 @api_view(['GET']) #Retorna el nombre del dia y la cantidad de compras por dia
 def compras_dia_semana(request):
     with connection.cursor() as cursor:
@@ -378,7 +391,7 @@ def sum_total_compra_week(request):
     total_compra_week = Compra.objects.filter(fecha_compra__gte=fecha_inicio_semana, fecha_compra__lt=fecha_fin_semana).aggregate(total_compra_week=Sum('total_compra'))
     total = total_compra_week['total_compra_week'] or 0
 
-    return Response({'total_compra_semanal': total})
+    return Response({'total_compra_semanal': total}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def total_compra_diaria_semanal(request):    
@@ -402,7 +415,7 @@ def total_compra_diaria_semanal(request):
             'dia_semana': dia_semana_traducido,
             'total_compras': total_compras
         })
-    return Response(response_data)
+    return Response(response_data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def total_compra_semanal_anual(request):
@@ -426,7 +439,7 @@ def total_compra_semanal_anual(request):
             'total_compras': total_compras
         })
 
-    return Response(response_data)
+    return Response(response_data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def total_compra_semanal_mes(request):
@@ -456,7 +469,7 @@ def total_compra_semanal_mes(request):
             'total_compras': total_compras
         })
 
-    return Response(response_data)
+    return Response(response_data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def total_compra_semanal_mes_anterior(request):
@@ -486,7 +499,7 @@ def total_compra_semanal_mes_anterior(request):
             'total_compras': total_compras
         })
 
-    return Response(response_data)
+    return Response(response_data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def total_compras_por_mes_anual(request):
