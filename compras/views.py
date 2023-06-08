@@ -29,6 +29,16 @@ DIAS_SEMANA = {
     'Sunday': 'Domingo',
 }
 
+DIAS_SEMANA_NUM = {
+    '1': 'Lunes',
+    '2': 'Martes',
+    '3': 'Miércoles',
+    '4': 'Jueves',
+    '5': 'Viernes',
+    '6': 'Sábado',
+    '7': 'Domingo',
+}
+
 MONTH_TRANSLATIONS = {
     1: 'Enero',
     2: 'Febrero',
@@ -370,34 +380,64 @@ def compras_por_mes_anual(request):
 
     return Response(data, status=status.HTTP_200_OK)
 
+# @api_view(['GET'])
+# def total_compras_hoy(request):
+#     fecha_actual = timezone.now().date()
+#     fecha_siguiente = fecha_actual + timedelta(days=1)
+    
+#     total_compra_hoy = Compra.objects.filter(fecha_compra__gte=fecha_actual, fecha_compra__lt=fecha_siguiente).aggregate(total_compra_hoy=Sum('total_compra'))
+#     total = total_compra_hoy['total_compra_hoy'] or 0
+
+#     fecha_actual_str = fecha_actual.strftime("%d/%m/%Y")
+
+#     return Response({'fecha_hoy': fecha_actual_str, 'total_compra': total}, status=status.HTTP_200_OK)
 @api_view(['GET'])
 def total_compras_hoy(request):
-    fecha_actual = timezone.now().date()
-    fecha_siguiente = fecha_actual + timedelta(days=1)
-    
-    total_compra_hoy = Compra.objects.filter(fecha_compra__gte=fecha_actual, fecha_compra__lt=fecha_siguiente).aggregate(total_compra_hoy=Sum('total_compra'))
-    total = total_compra_hoy['total_compra_hoy'] or 0
+    with connection.cursor() as cursor:
+        cursor.execute(
+            '''
+            SELECT SUM(total_compra)
+            FROM compras_compra
+            WHERE fecha_compra >= CURRENT_DATE
+            AND fecha_compra < CURRENT_DATE + INTERVAL '1 day'
+            '''
+        )
+        total_compra = cursor.fetchone()[0]
 
-    fecha_actual_str = fecha_actual.strftime("%d/%m/%Y")
+    return Response({'total_compra': total_compra}, status=status.HTTP_200_OK)
 
-    return Response({'fecha_hoy': fecha_actual_str, 'total_compra': total}, status=status.HTTP_200_OK)
+
+# @api_view(['GET'])
+# def sum_total_compra_week(request):
+#     fecha_actual = timezone.now().date()
+#     fecha_inicio_semana = fecha_actual - timedelta(days=fecha_actual.weekday())
+#     fecha_fin_semana = fecha_inicio_semana + timedelta(days=7)
+
+#     total_compra_week = Compra.objects.filter(fecha_compra__gte=fecha_inicio_semana, fecha_compra__lt=fecha_fin_semana).aggregate(total_compra_week=Sum('total_compra'))
+#     total = total_compra_week['total_compra_week'] or 0
+
+#     return Response({'total_compra_semanal': total}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def sum_total_compra_week(request):
-    fecha_actual = timezone.now().date()
-    fecha_inicio_semana = fecha_actual - timedelta(days=fecha_actual.weekday())
-    fecha_fin_semana = fecha_inicio_semana + timedelta(days=7)
+    with connection.cursor() as cursor:
+        cursor.execute(
+            '''
+            SELECT SUM(total_compra)
+            FROM compras_compra
+            WHERE fecha_compra >= date_trunc('week', CURRENT_DATE)
+            AND fecha_compra < date_trunc('week', CURRENT_DATE) + INTERVAL '1 week'
+            '''
+        )
+        total_compra = cursor.fetchone()[0]
 
-    total_compra_week = Compra.objects.filter(fecha_compra__gte=fecha_inicio_semana, fecha_compra__lt=fecha_fin_semana).aggregate(total_compra_week=Sum('total_compra'))
-    total = total_compra_week['total_compra_week'] or 0
-
-    return Response({'total_compra_semanal': total}, status=status.HTTP_200_OK)
+    return Response({'total_compra': total_compra}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def total_compra_diaria_semanal(request):    
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT rtrim(TO_CHAR(fecha_compra, 'Day')) AS dia_semana, sum(total_compra) AS total_compras
+            SELECT rtrim(TO_CHAR(fecha_compra, 'd')) AS dia_semana, sum(total_compra) AS total_compras
             FROM compras_compra
             WHERE fecha_compra >= date_trunc('week', CURRENT_DATE)
                 AND fecha_compra < date_trunc('week', CURRENT_DATE) + INTERVAL '1 week'
