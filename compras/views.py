@@ -189,6 +189,7 @@ def compras_recientes_paginadas(request):
         compra_data = {
             'id_compra': compra.id_compra,
             'tipo_servicio_compra': compra.tipo_servicio_compra,
+            'estado': compra.estado_compra,
             'preparaciones': compras_data
         }
         datos.append(compra_data)

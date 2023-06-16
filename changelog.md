@@ -103,7 +103,9 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Analiticas de cantidad de compras.
 - Analiticas de total monetario de compras.
 
+# 16/06/23
+- Cuando no hay stock en items compra auto, resuelve un 200, en vez de un 500 y devuelve un msj de que no hay stock
+- Agregado estado compra a compras recientes paginadas
+
 ## To do:
-- [ ] Trabajando en como implementar las sessiones desde el front.
-- [ ] mantener las request a la api usando esta autenticación.
-- [ ] Agregar el campo estado a las demas tablas en el modulo Compra.
+- [ ] Modificar la automatización para que cuando uno de las preparaciones ordenadas no tenga stock de ingredientes, devolver un no hay stock<br>si se puede, que retorne cual es la que no tiene stock para que el usuario pueda ordenar nuevamente sin volver a ordenar la que no tiene stock.
