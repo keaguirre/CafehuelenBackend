@@ -206,15 +206,26 @@ def compras_recientes_paginadas(request):
 
 @api_view(['POST'])
 def item_compra_auto(request): 
-    item_compra_data = JSONParser().parse(request)
+    # print('-----------------------------------------------------')
+    # print('request ', request)
+    print('-----------------------------------------------------')
+    print('request.data ', request.data)
+    print('-----------------------------------------------------')
+    item_compra_data = request.data
+    # item_compra_data = JSONParser().parse(request)
+    print('-----------------------------------------------------')
     print('data_entrante: ', item_compra_data)
+    print('-----------------------------------------------------')
     for item in item_compra_data:
+        print('item: ', item)
+        
         id_prep = item['id_prep']
         cant_item = item['cantidad_item']
         try:
             det_prep = Detalle_preparacion.objects.filter(id_prep=id_prep)
-            print('listado obj detalle prep: ', det_prep)
+            # print('listado obj detalle prep: ', det_prep)
             for i in det_prep:
+                # print('i', i)
                 totalEntrante = i.cantidad_necesaria * cant_item
                 tipo_unidad_detalle_prep = i.tipo_unidad
                 id_ingre_detalle_prep = i.id_ingre
@@ -223,16 +234,18 @@ def item_compra_auto(request):
                 tipo_unidad_ingrediente = ingre.tipo_unidad_ingrediente
                 if tipo_unidad_detalle_prep == tipo_unidad_ingrediente:
                     if stock_actual - totalEntrante < 0:
-                        return Response({'Resta no fue posible, revisar stock'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                        return Response({'Resta no fue posible, revisar stock'}, status=status.HTTP_200_OK)
                     elif stock_actual - totalEntrante >= 0:
                         ingre.stock_ingrediente = stock_actual - totalEntrante
                         ingre.save()
-                        return Response({'Stock actualizado correctamente correctamente'}, status=status.HTTP_200_OK)
+                        return Response({'Stock actualizado correctamente'}, status=status.HTTP_200_OK)
                     else:
+                        print('Error interno 500')
                         return Response({'Error interno'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Detalle_preparacion.DoesNotExist:
             return Response({'messaje':'El item compra buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
-    return Response(item_compra_data, status=status.HTTP_200_OK) 
+    return Response(item_compra_data, status=status.HTTP_200_OK)
+ 
 
 #--------------------------------------Analiticas---------------------------------------------------------------------
 @api_view(['GET'])
