@@ -106,6 +106,8 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 # 16/06/23
 - Cuando no hay stock en items compra auto, resuelve un 200, en vez de un 500 y devuelve un msj de que no hay stock
 - Agregado estado compra a compras recientes paginadas
+- Detalle compra arreglado.
+- Agregado PATCH a detalle compra para actualizar los pedidos
 
 ## To do:
 - [ ] Modificar la automatización para que cuando uno de las preparaciones ordenadas no tenga stock de ingredientes, devolver un no hay stock<br>si se puede, que retorne cual es la que no tiene stock para que el usuario pueda ordenar nuevamente sin volver a ordenar la que no tiene stock.

@@ -76,16 +76,24 @@ def compra_list(request):
         count = Compra.objects.all().delete()
         return Response({'message:','{} Compras han sido eliminadas de la base de datos'.format(count[0])},status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET','PUT','DELETE'])
-def compra_detail(request,id_item_compra):
+@api_view(['GET','PUT','PATCH','DELETE'])
+def compra_detail(request,id_compra):
     try:
-        compra = Compra.objects.get(id_item_compra=id_item_compra)
+        compra = Compra.objects.get(id_compra=id_compra)
     except Compra.DoesNotExist:
         return Response({'messaje':'La compra buscada no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         compra_serializer = CompraSerializer(compra)
         return Response(compra_serializer.data,status=status.HTTP_200_OK)
+    
+    elif request.method == 'PATCH':
+        compra_data = JSONParser().parse(request)
+        compra_serializer = CompraSerializer(compra, data=compra_data, partial=True)
+        if compra_serializer.is_valid():
+            compra_serializer.save()
+            return Response(compra_serializer.data,status=status.HTTP_200_OK)
+        return Response(compra_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'PUT':
         compra_data = JSONParser().parse(request)
