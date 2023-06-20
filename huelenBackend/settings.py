@@ -23,18 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = 'django-insecure-sh-*i&7p@5-5t8(ra84jedxjd4$b4wk*6*)o8pp_r+093fw=4u'
-
+# SECRET_KEY = 'django-insecure-sh-*i&7p@5-5t8(ra84jedxjd4$b4wk*6*)o8pp_r+093fw=4u'
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
-# if RENDER_EXTERNAL_HOSTNAME:
-#     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
     
 # Application definition
 
@@ -105,6 +104,8 @@ if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+DEBUG = 'RENDER' not in os.environ
+
 WSGI_APPLICATION = 'huelenBackend.wsgi.application'
 
 REST_FRAMEWORK = {
@@ -115,19 +116,18 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
     'default': dj_database_url.config( 
-        #default='sqlite:///db.sqlite3',
-        default='postgres://keaguirre:f1hm8gLcMdqdPxVKzzY0U8sDLyThhJgR@dpg-ch9firjhp8u5mt9lskkg-a.oregon-postgres.render.com/cafehuelendb_5ykp',
+        default='sqlite:///db.sqlite3',
+        #default='postgres://keaguirre:f1hm8gLcMdqdPxVKzzY0U8sDLyThhJgR@dpg-ch9firjhp8u5mt9lskkg-a.oregon-postgres.render.com/cafehuelendb_5ykp',
         conn_max_age=600
     )
 }
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#     'default': dj_database_url.config( 
+#         #default='sqlite:///db.sqlite3',
+#         default='postgres://keaguirre:f1hm8gLcMdqdPxVKzzY0U8sDLyThhJgR@dpg-ch9firjhp8u5mt9lskkg-a.oregon-postgres.render.com/cafehuelendb_5ykp',
+#         conn_max_age=600
+#     )
 # }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
