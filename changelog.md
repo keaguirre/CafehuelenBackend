@@ -109,5 +109,8 @@ Aquí irá el registro de cambios y commits con su fecha y descripción.
 - Detalle compra arreglado.
 - Agregado PATCH a detalle compra para actualizar los pedidos
 
+# 19/06/23
+- Terminada la automatizacion retorna el listado de preparaciones que no tienen stock.
+
 ## To do:
 - [ ] Modificar la automatización para que cuando uno de las preparaciones ordenadas no tenga stock de ingredientes, devolver un no hay stock<br>si se puede, que retorne cual es la que no tiene stock para que el usuario pueda ordenar nuevamente sin volver a ordenar la que no tiene stock.

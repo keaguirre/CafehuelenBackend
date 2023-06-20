@@ -225,11 +225,14 @@ def item_compra_auto(request):
     print('-----------------------------------------------------')
     print('data_entrante: ', item_compra_data)
     print('-----------------------------------------------------')
+    resultados = {}
     for item in item_compra_data:
+        ingredientes_validos = []
+        preparaciones_invalidas = []
         print('item: ', item)
-        
         id_prep = item['id_prep']
         cant_item = item['cantidad_item']
+        nombre_prep = item['nombre_prep']
         try:
             det_prep = Detalle_preparacion.objects.filter(id_prep=id_prep)
             # print('listado obj detalle prep: ', det_prep)
@@ -241,20 +244,50 @@ def item_compra_auto(request):
                 ingre = Ingrediente.objects.get(id_ingre=id_ingre_detalle_prep)
                 stock_actual = ingre.stock_ingrediente
                 tipo_unidad_ingrediente = ingre.tipo_unidad_ingrediente
+
                 if tipo_unidad_detalle_prep == tipo_unidad_ingrediente:
                     if stock_actual - totalEntrante < 0:
-                        return Response({'Resta no fue posible, revisar stock'}, status=status.HTTP_200_OK)
+                        ingredientes_validos.append(False)
+                        preparaciones_invalidas.append(nombre_prep)
+                        
                     elif stock_actual - totalEntrante >= 0:
-                        ingre.stock_ingrediente = stock_actual - totalEntrante
-                        ingre.save()
-                        return Response({'Stock actualizado correctamente'}, status=status.HTTP_200_OK)
+                        ingredientes_validos.append(True)
                     else:
                         print('Error interno 500')
-                        return Response({'Error interno'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                        return Response({'Error interno'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
+    
         except Detalle_preparacion.DoesNotExist:
-            return Response({'messaje':'El item compra buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
-    return Response(item_compra_data, status=status.HTTP_200_OK)
- 
+            return Response({'messaje':'El item compra buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND) 
+    # return Response(item_compra_data, status=status.HTTP_200_OK)    
+       
+            '''        
+            Se harán dos vueltas a todos los ingredientes
+            la primera para revisar si es factible pedir la preparacion iterando sobre todos los ingredientes y agregandolos al arreglo con true o false
+            y la segunda vuelta para iterar sobre cada uno de los ingredientes haciendo la resta nuevamente(lo que hacia antes del check de la primera vuelta)
+            después de finalizada la primera vuelta se revisará si es factible o no, si lo es, se pasa a la vuelta 2, si no, se responde negativamente con la prep que no tiene suficiente stock
+            '''
+        
+    if all(ingredientes_validos):
+        for item in item_compra_data:
+            id_prep = item['id_prep']
+            cant_item = item['cantidad_item']
+            det_prep = Detalle_preparacion.objects.filter(id_prep=id_prep)
+            for i in det_prep:
+                totalEntrante = i.cantidad_necesaria * cant_item
+                id_ingre_detalle_prep = i.id_ingre
+                ingre = Ingrediente.objects.get(id_ingre=id_ingre_detalle_prep)
+                ingre.stock_ingrediente -= totalEntrante
+                ingre.save()
+        return Response({'Stock actualizado correctamente'}, status=status.HTTP_200_OK)
+    #si no es asi, dsp de la primera vuelta so
+    else:
+        print('preparaciones invalidas: ', preparaciones_invalidas)
+
+        #turn preparaciones_invalidas array to String
+        preparaciones_invalidas2 = ', '.join(preparaciones_invalidas)
+        print('preparaciones invalidas2: ', preparaciones_invalidas2)
+        
+        return Response({'Resta no fue posible, favor de remover el/los item(s)', preparaciones_invalidas2}, status=status.HTTP_200_OK)
 
 #--------------------------------------Analiticas---------------------------------------------------------------------
 @api_view(['GET'])
