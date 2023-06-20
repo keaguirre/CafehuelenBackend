@@ -226,9 +226,9 @@ def item_compra_auto(request):
     print('data_entrante: ', item_compra_data)
     print('-----------------------------------------------------')
     resultados = {}
+    preparaciones_invalidas = []
     for item in item_compra_data:
         ingredientes_validos = []
-        preparaciones_invalidas = []
         print('item: ', item)
         id_prep = item['id_prep']
         cant_item = item['cantidad_item']
@@ -249,7 +249,7 @@ def item_compra_auto(request):
                     if stock_actual - totalEntrante < 0:
                         ingredientes_validos.append(False)
                         preparaciones_invalidas.append(nombre_prep)
-                        
+                        print(preparaciones_invalidas)
                     elif stock_actual - totalEntrante >= 0:
                         ingredientes_validos.append(True)
                     else:
@@ -287,7 +287,7 @@ def item_compra_auto(request):
         preparaciones_invalidas2 = ', '.join(preparaciones_invalidas)
         print('preparaciones invalidas2: ', preparaciones_invalidas2)
         
-        return Response({'Resta no fue posible, favor de remover el/los item(s)', preparaciones_invalidas2}, status=status.HTTP_200_OK)
+        return Response({'Preparacion no disponible, favor de remover: '+ preparaciones_invalidas2}, status=status.HTTP_200_OK)
 
 #--------------------------------------Analiticas---------------------------------------------------------------------
 @api_view(['GET'])
